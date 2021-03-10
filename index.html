@@ -58,8 +58,31 @@
 <ul id="categories" class="list-group">
     <li></li>
 </ul>
-<div id="products" class="row">
+<div id="products" class="row justify-content-center">
 
+<template id="myTemplate">
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img id="image-node" src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 id="title-node" class="card-title">Card title</h5>
+        <p id="description-node" class="card-text collapse">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="col-4">
+      <button id="buy-node" value="fdsa" onClick="addToCart(this);" class="btn btn-dark col">buy</button>
+    </div>
+      <div id="price-node" class="col">
+        <h4>'+price+'$</h4>'
+      </div>
+    
+  </div>
+</div>
+</template>
 </div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

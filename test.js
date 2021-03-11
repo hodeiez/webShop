@@ -27,7 +27,7 @@ function cardTemplate(id, title, description, image, price) {
   let buyButton = clone.querySelector("#buy-node");
 
   titleNode.innerText = title;
-  descriptionNode.innerText = description;
+  descriptionNode.innerText = description.substr(0,150)+"...";
   imageNode.src = image;
   priceNode.innerText = price;
   buyButton.value = id;

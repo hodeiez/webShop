@@ -18,8 +18,10 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top align-content-end">
+      <a id="shopping-cart-icon" class="navbar-brand" href="">
+        <img src="images/shoppingCart.svg">
+        0</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -56,16 +58,17 @@
         </ul>
       </div>
     </nav>
-<ul id="categories" class="list-group">
-    <li></li>
-</ul>
+  <div class="container">
+    <ul id="categories" class="list-group list-group-horizontal align-content-center">    
+  </ul>
 <div id="products" class="row justify-content-center">
 
 <template id="myTemplate">
+  
 <div class="card mb-3 " style="max-width: 540px;">
   <div class="row no-gutters">
     <div class="col-md-4">
-      <img id="image-node" src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png" class="card-img  rounded d-block" alt="..." style="max-height: 250px;">
+      <img id="image-node" src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png" class="card-img rounded d-block" alt="product image" style="max-width:250px; max-height:250px;height: 100%; width:100%">
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -75,17 +78,24 @@
       </div>
     </div>
   </div>
-    <div class="row">
+    <div class="row align-bottom">
     <div class="col">
-      <button id="buy-node" value="fdsa" onClick="addToCart(this);" class=" mb-0 btn btn-dark col">buy</button>
+      <button id="buy-node" value="fdsa" onClick="addToCart(this);" class=" mb-0 btn btn-success col">buy</button>
     </div>
-      <div id="price-node" class="col-4">
-        <h4>'+price+'$</h4>'
+      <div id="price-node" class="col">
+        <h4>'+price+'$</h4>
+      </div>
+      <div class="col">
+        <button value="value" onClick="" class=" mb-0 btn btn-light col">more info</button>
       </div>
     </div>
   
 </div>
 </template>
+
+
+
+</div>
 </div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

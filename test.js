@@ -74,5 +74,8 @@ function setAllProducts() {
     .then((json) => console.log(json));
 }
 function addToCart(e) {
+  let iconText=document.getElementById("shopping-cart-icon").innerText;
+  let counter=Number(iconText) + 1;
+  document.getElementById("shopping-cart-icon").innerText=counter;
   alert(e.value);
 }

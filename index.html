@@ -69,6 +69,59 @@
       </div>
     </nav>
 
+
+          <!-- side bar-->
+          <div id="wrapper" class="t">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+              <h3 class="bg-light">SHOPPING CART</h3>
+              
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!--
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand"> <a href="#"> Start Bootstrap </a> </li>
+                    <li> <a href="#">Dashboard</a> </li>
+                    <li> <a href="#">Shortcuts</a> </li>
+                    <li> <a href="#">Overview</a> </li>
+                    <li> <a href="#">Events</a> </li>
+                    <li> <a href="#">About</a> </li>
+                    <li> <a href="#">Services</a> </li>
+                    <li> <a href="#">Contact</a> </li>
+                </ul>
+                -->
+            </div> <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <!-- /#page-content-wrapper -->
     <div class="container">
       
       <ul
@@ -176,13 +229,9 @@
           </div>
         </div>
         <!--end modal-->
-        <div id="wrapper" class="no-sidebar">
-          <ul>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-          </ul>
-        </div>
+  
+      </div>
+        <!--end sidebar-->
       </div>
     </div>
 
@@ -205,11 +254,20 @@
     <script src="test.js"></script>
     <script>
       //test sidebar
-      $(document).ready(function () {
-        $("#sidebar-toggle").on("click", function () {
-          $("#wrapper").toggleClass("no-sidebar");
-        });
-      });
+      $(function(){
+            $("#sidebar-toggle").click(function(e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+
+            $(window).resize(function(e) {
+              if($(window).width()<=768){
+                $("#wrapper").removeClass("toggled");
+              }else{
+                $("#wrapper").addClass("toggled");
+              }
+            });
+          });
       //end, then the rest
       setCategories();
       setAllProducts();

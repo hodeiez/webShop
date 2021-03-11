@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>YOUR SHOP</title>
+    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,16 +13,12 @@
       crossorigin="anonymous"
     />
     <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css"
-  />
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css"
+    />
   </head>
   <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <a id="shopping-cart-icon" class="navbar-brand" href="">
-        <img src="images/shoppingCart.svg" alt="shopping-cart icon"> 0
-        </a>
       <button
         class="navbar-toggler"
         type="button"
@@ -34,7 +31,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
             <a class="nav-link" href="#"
               >Home <span class="sr-only">(current)</span></a
@@ -55,66 +52,140 @@
               >Disabled</a
             >
           </li>
+          <li class="nav-item">
+            <button id="sidebar-toggle" class="btn btn-dark">test!</button>
+          </li>
+          <li class="nav-item">
+            <img
+              src="images/shoppingCart.svg"
+              alt="shopping-cart icon"
+              width="20px"
+              height="20px"
+              class="ml-auto"
+            />
+            <a id="shopping-cart-icon" class="navbar-brand" href=""> 0 </a>
+          </li>
         </ul>
       </div>
     </nav>
-  <div class="container">
-    <ul id="categories" class="list-group list-group-horizontal align-content-center">    
-  </ul>
-<div id="products" class="row justify-content-center">
 
-<template id="myTemplate">
-  
-<div class="card mb-3 " style="max-width: 540px;">
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img id="image-node" src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png" class="card-img rounded d-block" alt="product image" style="max-width:250px; max-height:250px;height: 100%; width:100%">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 id="title-node" class="card-title">Card title</h5>
-        <p id="description-node" aria-expanded="false" class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">available</small></p>
-      </div>
-    </div>
-  </div>
-    <div class="row align-bottom">
-    <div class="col">
-      <button id="buy-node" value="fdsa" onClick="addToCart(this);" class=" mb-0 btn btn-success col">buy</button>
-    </div>
-      <div id="price-node" class="col">
-        <h4>'+price+'$</h4>
-      </div>
-      <div class="col">
-        <button value="value" onClick="" class=" mb-0 btn btn-light col">more info</button>
-      </div>
-    </div>
-  
-</div>
-</template>
+    <div class="container">
+      
+      <ul
+        id="categories"
+        class="list-group list-group-horizontal align-content-center"
+      ></ul>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div id="products" class="row justify-content-center">
+        <template id="myTemplate">
+          <div class="shadow-sm card mb-3" style="max-width: 540px">
+            <div class="row no-gutters" style="height: 100%">
+              <div class="col-md-4">
+                <img
+                  id="image-node"
+                  src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png"
+                  class="card-img rounded d-block"
+                  alt="product image"
+                  style="
+                    max-width: 250px;
+                    max-height: 250px;
+                    height: 100%;
+                    width: 100%;
+                  "
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 id="title-node" class="card-title">Card title</h5>
+                  <p
+                    id="description-node"
+                    aria-expanded="false"
+                    class="card-text"
+                  >
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted">available</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row align-bottom">
+              <div class="col">
+                <button
+                  id="buy-node"
+                  value="fdsa"
+                  onClick="addToCart(this);"
+                  class="mb-0 btn btn-success col"
+                >
+                  buy
+                </button>
+              </div>
+              <div id="price-node" class="col">
+                <h4>'+price+'$</h4>
+              </div>
+              <div class="col">
+                <button value="value" onClick="" class="mb-0 btn btn-light col">
+                  more info
+                </button>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!--test modal-->
+        <div
+          class="modal fade"
+          id="myModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                  Modal title
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">...</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end modal-->
+        <div id="wrapper" class="no-sidebar">
+          <ul>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-</div>
-</div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -131,14 +202,20 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="test.js">
-     </script>
-     <script>
-         setCategories();
-         setAllProducts();
-         $('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
-     </script>
+    <script src="test.js"></script>
+    <script>
+      //test sidebar
+      $(document).ready(function () {
+        $("#sidebar-toggle").on("click", function () {
+          $("#wrapper").toggleClass("no-sidebar");
+        });
+      });
+      //end, then the rest
+      setCategories();
+      setAllProducts();
+      $("#myModal").on("shown.bs.modal", function () {
+        $("#myInput").trigger("focus");
+      });
+    </script>
   </body>
 </html>

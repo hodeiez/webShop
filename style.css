@@ -1,0 +1,25 @@
+#wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    min-height: 100vh;
+    position: fixed;
+    width: 299px;
+}
+
+#content {
+    min-height: 100vh;
+    position: absolute;
+    right: 0;
+    width: calc(100% - 299px);
+}
+
+.no-sidebar #sidebar {
+    display: none;
+}
+
+.no-sidebar #content {
+    width: 100%;
+}

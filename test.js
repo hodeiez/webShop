@@ -1,11 +1,12 @@
 //product class
 class Product {
-  constructor(id, title, description, image, price) {
+  constructor(id, title, description, image, price,category) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.image = image;
     this.price = price;
+    this.category=category;
   }
   createCard() {
     return cardTemplate(
@@ -61,7 +62,8 @@ function setAllProducts() {
           json[i].title,
           json[i].description,
           json[i].image,
-          json[i].price
+          json[i].price,
+          json[i].category
         );
         let element = productItem.createCard();
         document.getElementById("products").appendChild(element);

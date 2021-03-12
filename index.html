@@ -128,15 +128,17 @@
             <div id="page-content-wrapper">
                 <!-- /#page-content-wrapper -->
     <div class="container">
-      <div class="row">   <div class="col">
-        <ul
+      <ul
         id="categories"
-        class="list-group list-group-horizontal align-content-center"
-      ></ul></div>
+        class="list-group list-group-horizontal align-content-center align-self-center"
+      ></ul>
+      <div class="row">   <div class="col">
+        
+    </div>
      
 
       <div id="products" class="row justify-content-center">
-     
+        
     </div>
         <template id="myTemplate">
           <div class="shadow-sm card mb-3" style="max-width: 540px">
@@ -267,7 +269,7 @@
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
-
+/*
             $(window).resize(function(e) {
               if($(window).width()<=768){
                 $("#wrapper").removeClass("toggled");
@@ -275,7 +277,9 @@
                 $("#wrapper").addClass("toggled");
               }
             });
+          */
           });
+          
       //end, then the rest
       setCategories();
       setAllProducts();

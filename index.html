@@ -73,13 +73,15 @@
           <!-- side bar-->
           <div id="wrapper" class="">
             <!-- Sidebar -->
-            <div id="sidebar-wrapper" >
+            <div id="sidebar-wrapper">
+            
               <h3 class="bg-light sticky-top">SHOPPING CART</h3>
               <div class="container overflow-auto">
-              <div class="row">
-                <div class="col">
+<!--<template>-->
+              <div id="product-item" class="row bg-light rounded">
+                <div class="col-2">
                   <img
-                  id="image-product-item"
+                  id="product-item-image"
                   src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png"
                   class="card-img rounded d-block img-thumbnail"
                   alt="product image"
@@ -91,30 +93,33 @@
                   "
                 />
                 </div>
-                <div class="col">
+                <div id="product-item-title" class="col-4">
                   <p>MENS JACK</p>
                 </div>
+                
                 <div class="col">
-                  <p>1</p>
+                  <button class="btn btn-success rounded-circle page-link">+</button>
+                  
+                </div>
+                <div id="product-item-quantity" class="col">
+                  <p class="text-center">1</p>
                 </div>
                 <div class="col">
-                  <button class="btn btn-success rounded-circle">+</button>
-                      <button class="btn btn-danger rounded-circle">-</button>
+               
+                      <button class="btn btn-danger rounded-circle page-link">-</button>
                 </div>
-                <div class="col">
+                <div class="col-2">
                   <div>remove</div>
                 </div>
               </div>
-              
-
-              
+              <!--</template>-->
+       
             </div>
-            <div class="row" style="padding-bottom: 0;margin-bottom: 0;">
-              <div class="col">
-                <button class=" btn btn-secondary position-absolute bottom" >checkout</button>
-              </div>
-            </div>
-
+            
+                <button class=" btn btn-secondary btn-block  mt-auto mb-0" >checkout</button>
+             
+            
+         
               
         
             </div> <!-- /#sidebar-wrapper -->

@@ -18,6 +18,19 @@ class Product {
     );
   }
 }
+
+class ProductItem{
+  constructor(product,quantity){
+    this.product=product;
+    this.quantity=quantity;
+  }
+  createProductItemCard(){
+    return itemTemplate(
+      this.product, this.quantity
+      );
+  }
+}
+
 function cardTemplate(id, title, description, image, price) {
   let mytemplate = document.querySelector("#myTemplate");
   let clone = mytemplate.content.cloneNode(true);
@@ -32,6 +45,23 @@ function cardTemplate(id, title, description, image, price) {
   imageNode.src = image;
   priceNode.innerText = price;
   buyButton.value = id;
+  return clone;
+}
+
+function itemTemplate(product,quantity) {
+  let mytemplate = document.querySelector("#product-item");
+  let clone = mytemplate.content.cloneNode(true);
+  let titleNode = clone.querySelector("#product-item-title");
+ // let descriptionNode = clone.querySelector("#description-node");
+  let imageNode = clone.querySelector("#product-item-image");
+ // let priceNode = clone.querySelector("#price-node");
+  let quantityNode = clone.querySelector("#product-item-quantity");
+
+  titleNode.innerText = product.title;
+ // descriptionNode.innerText = description.substr(0,150)+"...";
+  imageNode.src = product.image;
+  //priceNode.innerText = price;
+  quantityNode.value = quantity;
   return clone;
 }
 
@@ -79,5 +109,16 @@ function addToCart(e) {
   let iconText=document.getElementById("shopping-cart-icon").innerText;
   let counter=Number(iconText) + 1;
   document.getElementById("shopping-cart-icon").innerText=counter;
-  alert(e.value);
+  alert("Added to shopping cart "+ e.value);
+let selectedId=e.value;
+
+  fetch('https://fakestoreapi.com/products/'+selectedId)
+            .then(res=>res.json())
+            .then(json=>{
+              
+              let productItem=new ProductItem(new Product(json.id,json.title,json.description,json.image,json.price,json.category),1); 
+              document.getElementById("shopping-cart").appendChild(productItem.createProductItemCard());
+              console.log(json)});
+
+
 }

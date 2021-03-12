@@ -52,18 +52,19 @@
               >Disabled</a
             >
           </li>
-          <li class="nav-item">
-            <button id="sidebar-toggle" class="btn btn-dark">test!</button>
-          </li>
-          <li class="nav-item">
-            <img
+          <li class="nav-item navbar-brand">
+
+            
+            <button id="sidebar-toggle" class="btn btn-light"><img
               src="images/shoppingCart.svg"
               alt="shopping-cart icon"
               width="20px"
               height="20px"
               class="ml-auto"
             />
-            <a id="shopping-cart-icon" class="navbar-brand" href=""> 0 </a>
+          </button>
+          </li>
+            <a id="shopping-cart-icon" class="" href=""> 0 </a>
           </li>
         </ul>
       </div>
@@ -75,10 +76,10 @@
             <!-- Sidebar -->
             <div id="sidebar-wrapper">
             
-              <h3 class="bg-light sticky-top">SHOPPING CART</h3>
-              <div class="container overflow-auto">
-<!--<template>-->
-              <div id="product-item" class="row bg-light rounded">
+              <h3 class="bg-light sticky-top">SHOPPING CART</h3> <button class=" btn btn-secondary btn-block  mt-auto mb-0" >checkout</button>
+              <div id="shopping-cart" class="container overflow-auto">
+          <template  id="product-item">
+              <div class="row bg-light rounded">
                 <div class="col-2">
                   <img
                   id="product-item-image"
@@ -112,11 +113,11 @@
                   <div>remove</div>
                 </div>
               </div>
-              <!--</template>-->
+              </template>
        
             </div>
             
-                <button class=" btn btn-secondary btn-block  mt-auto mb-0" >checkout</button>
+               
              
             
          

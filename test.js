@@ -1,3 +1,4 @@
+const currency= "€";
 //product class 
 class Product {
   constructor(id, title, description, image, price,category) {
@@ -43,10 +44,11 @@ function cardTemplate(id, title, description, image, price) {
   titleNode.innerText = title;
   descriptionNode.innerText = description.substr(0,150)+"...";
   imageNode.src = image;
-  priceNode.innerText = price;
+  priceNode.innerText = price+currency;
   buyButton.value = id;
   return clone;
 }
+
 //create HTML for product items in Shopping cart
 function itemTemplate(product,quantity) {
   let mytemplate = document.querySelector("#product-item");

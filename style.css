@@ -18,10 +18,10 @@
   #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    right: 250px;
+    right: 300px;
     width: 0;
     height: 80%;
-    margin-right: -250px;
+    margin-right: -300px;
     overflow-y: auto;
     background: rgba(156, 97, 252, 0.247);
     -webkit-transition: all 0.5s ease;
@@ -31,7 +31,7 @@
   }
   
   #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 400px;
   }
   
   #page-content-wrapper {

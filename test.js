@@ -1,4 +1,4 @@
-//product class
+//product class 
 class Product {
   constructor(id, title, description, image, price,category) {
     this.id = id;
@@ -30,7 +30,7 @@ class ProductItem{
       );
   }
 }
-
+//create HTML for product cards
 function cardTemplate(id, title, description, image, price) {
   let mytemplate = document.querySelector("#myTemplate");
   let clone = mytemplate.content.cloneNode(true);
@@ -47,20 +47,20 @@ function cardTemplate(id, title, description, image, price) {
   buyButton.value = id;
   return clone;
 }
-
+//create HTML for product items in Shopping cart
 function itemTemplate(product,quantity) {
   let mytemplate = document.querySelector("#product-item");
   let clone = mytemplate.content.cloneNode(true);
   let titleNode = clone.querySelector("#product-item-title");
- // let descriptionNode = clone.querySelector("#description-node");
+
   let imageNode = clone.querySelector("#product-item-image");
- // let priceNode = clone.querySelector("#price-node");
+
   let quantityNode = clone.querySelector("#product-item-quantity");
 
   titleNode.innerText = product.title;
- // descriptionNode.innerText = description.substr(0,150)+"...";
+
   imageNode.src = product.image;
-  //priceNode.innerText = price;
+
   quantityNode.value = quantity;
   return clone;
 }
@@ -106,10 +106,12 @@ function setAllProducts() {
     .then((json) => console.log(json));
 }
 function addToCart(e) {
+  //test to show it gets the id
   let iconText=document.getElementById("shopping-cart-icon").innerText;
   let counter=Number(iconText) + 1;
   document.getElementById("shopping-cart-icon").innerText=counter;
   alert("Added to shopping cart "+ e.value);
+
 let selectedId=e.value;
 
   fetch('https://fakestoreapi.com/products/'+selectedId)

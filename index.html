@@ -29,9 +29,26 @@
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
+        <li class="navbar-text navbar-expand-lg">
+
+            
+          <button id="sidebar-toggle" class="btn btn-light">
+            <img
+            src="images/shoppingCart.svg"
+            alt="shopping-cart icon"
+            width="20px"
+            height="20px"
+            class="ml-auto"
+          /> 
+        </li>
+          <a id="shopping-cart-icon" class="" href=""> 0 </a>
+        </li>
+        </button>
+        
+        </li>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav">
           <li class="nav-item active">
             <a class="nav-link" href="#"
               >Home <span class="sr-only">(current)</span></a
@@ -52,20 +69,7 @@
               >Disabled</a
             >
           </li>
-          <li class="nav-item navbar-brand">
-
-            
-            <button id="sidebar-toggle" class="btn btn-light"><img
-              src="images/shoppingCart.svg"
-              alt="shopping-cart icon"
-              width="20px"
-              height="20px"
-              class="ml-auto"
-            />
-          </button>
-          </li>
-            <a id="shopping-cart-icon" class="" href=""> 0 </a>
-          </li>
+        
         </ul>
       </div>
     </nav>
@@ -74,7 +78,7 @@
           <!-- side bar-->
           <div id="wrapper" class="">
             <!-- Sidebar -->
-            <div id="sidebar-wrapper">
+            <div id="sidebar-wrapper" class="shadow">
             
               <h3 class="bg-light sticky-top">SHOPPING CART</h3> <button class=" btn btn-secondary btn-block  mt-auto mb-0" >checkout</button>
               <div id="shopping-cart" class="container overflow-auto">
@@ -126,17 +130,16 @@
             </div> <!-- /#sidebar-wrapper -->
             <!-- Page Content -->
             <div id="page-content-wrapper">
+              <div class="container d-flex">
+                <ul
+                  id="categories"
+                  class="list-group list-group-horizontal m-auto"
+                ></ul>
+              </div>
                 <!-- /#page-content-wrapper -->
     <div class="container">
-      <ul
-        id="categories"
-        class="list-group list-group-horizontal align-content-center align-self-center"
-      ></ul>
-      <div class="row">   <div class="col">
-        
-    </div>
-     
-
+    
+  
       <div id="products" class="row justify-content-center">
         
     </div>

@@ -99,7 +99,7 @@
                 </div>
                 
                 <div class="col m-auto">
-                  <button class="btn btn-success rounded-circle page-link ">+</button>
+                  <button id="quantity-plus" class="btn btn-success rounded-circle page-link ">+</button>
                   
                 </div>
                 <div id="product-item-quantity" class="col-1 m-auto">1
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col m-auto">
                
-                      <button class="btn btn-danger rounded-circle page-link">-</button>
+                      <button id="quantity-minus" class="btn btn-danger rounded-circle page-link">-</button>
                 </div>
                 <div class="col-2 m-auto">
                   <div>remove</div>
@@ -125,7 +125,7 @@
         
             </div> <!-- /#sidebar-wrapper -->
             <!-- Page Content -->
-            <div id="page-content-wrapper">
+    <div id="page-content-wrapper">
               <div class="container d-flex">
                 <ul
                   id="categories"
@@ -193,7 +193,7 @@
               </div>
               
               <div class="col-4">
-                <button value="value" onClick="" class="mb-0 btn btn-light col">
+                <button id="modal-button" type="button" onClick="" class="mb-0 btn btn-light col" data-title="this is title" data-description="this is description" data-toggle="modal" data-target="#myModal">
                   more info
                 </button>
               </div>
@@ -227,16 +227,7 @@
               </div>
               <div class="modal-body">...</div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
+                
               </div>
             </div>
           </div>
@@ -272,23 +263,22 @@
                 e.preventDefault();
                 $("#wrapper").toggleClass("toggled");
             });
-/*
-            $(window).resize(function(e) {
-              if($(window).width()<=768){
-                $("#wrapper").removeClass("toggled");
-              }else{
-                $("#wrapper").addClass("toggled");
-              }
-            });
-          */
           });
           
       //end, then the rest
+let item=$(document).ready(function () {
+  $(this).find('#product-item')})
+  let quantity=$(document).ready(function () {
+  $(this).find('#product-item-quantity')});
+  item.on('click','#quantity-plus',function()
+  
+  {
+    //do sum
+})
+
       setCategories();
       setAllProducts();
-      $("#myModal").on("shown.bs.modal", function () {
-        $("#myInput").trigger("focus");
-      });
+     
     </script>
   </body>
 </html>

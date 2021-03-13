@@ -40,12 +40,16 @@ function cardTemplate(id, title, description, image, price) {
   let imageNode = clone.querySelector("#image-node");
   let priceNode = clone.querySelector("#price-node");
   let buyButton = clone.querySelector("#buy-node");
+  let modalButton = clone.querySelector("#modal-button");
 
   titleNode.innerText = title;
   descriptionNode.innerText = description.substr(0,150)+"...";
   imageNode.src = image;
   priceNode.innerText = price+currency;
   buyButton.value = id;
+  modalButton.dataset.title = title;
+  modalButton.dataset.description=description;
+
   return clone;
 }
 
@@ -122,7 +126,16 @@ let selectedId=e.value;
               
               let productItem=new ProductItem(new Product(json.id,json.title,json.description,json.image,json.price,json.category),1); 
               document.getElementById("shopping-cart").appendChild(productItem.createProductItemCard());
-              console.log(json)});
+              });
 
 
 }
+
+$('#myModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget)
+  var title = button.data('title')
+  var description = button.data('description')
+  var modal = $(this)
+  modal.find('.modal-title').text(title)
+  modal.find('.modal-body').text(description)
+})

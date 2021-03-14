@@ -1,4 +1,6 @@
 const currency= "€";
+var shoppingCartObj=null;
+var cartItemAmount=-1;
 //product class 
 class Product {
   constructor(id, title, description, image, price,category) {
@@ -23,6 +25,12 @@ class Product {
 class ProductItem{
   constructor(product,quantity){
     this.product=product;
+    this.quantity=quantity;
+  }
+  getProductId(){
+    return product.id;
+  }
+  setProductQ(quantity){
     this.quantity=quantity;
   }
   createProductItemCard(){
@@ -58,16 +66,14 @@ function itemTemplate(product,quantity) {
   let mytemplate = document.querySelector("#product-item");
   let clone = mytemplate.content.cloneNode(true);
   let titleNode = clone.querySelector("#product-item-title");
-
+ // let idNode= clone.querySelector('#product-id');
   let imageNode = clone.querySelector("#product-item-image");
-
   let quantityNode = clone.querySelector("#product-item-quantity");
 
   titleNode.innerText = product.title;
-
   imageNode.src = product.image;
-
   quantityNode.value = quantity;
+  //idNode.data=product.id;
   return clone;
 }
 
@@ -125,7 +131,11 @@ let selectedId=e.value;
             .then(json=>{
               
               let productItem=new ProductItem(new Product(json.id,json.title,json.description,json.image,json.price,json.category),1); 
+             
+             //this will go to a function update html shopping cart
               document.getElementById("shopping-cart").appendChild(productItem.createProductItemCard());
+             //this updates storage
+              addItemToShoppingCart(productItem);
               });
 
 
@@ -139,3 +149,52 @@ $('#myModal').on('show.bs.modal', function (event) {
   modal.find('.modal-title').text(title)
   modal.find('.modal-body').text(description)
 })
+
+//working with storage
+//setting storage local data getter and setter
+function getLocalData(name){
+  return localStorage.getItem(name)
+}
+function setLocalData(name,value){
+  return (value!=null)?localStorage.setItem(name,value):localStorage.removeItem(name)
+}
+//check storage for shopping cart object
+function shoppingCartInit(){
+shoppingCartObj=new Array();
+cartItemAmount=0
+if(getLocalData('SHOPPING_CART')!=null){
+  cartItemAmount=getLocalData('SHOPPING_CART_AMOUNT');
+  shoppingCartObj=JSON.parse(getLocalData('SHOPPING_CART'));
+}
+else{
+  console.log('shopping cart not found in storage')
+}
+}
+
+//add item to cart storage
+function addItemToShoppingCart(productItem){
+  let updateItem=false;
+  //if item exists add quantity
+  for(index in shoppingCartObj){
+    if(shoppingCartObj[index].getProductId==productItem.getProductId){
+      shoppingCartObj[index].setProductQ(shoppingCartObj[index].quantity+1);
+      updateItem=true;
+    }
+    else{
+updateItem=false;
+    }
+  }
+
+  if(updateItem==true){
+    setLocalData('SHOPPING_CART',JSON.stringify(shoppingCartObj));
+    setLocalData('SHOPPING_CART_AMOUNT',cartItemAmount);
+  }
+  else{
+    shoppingCartObj[cartItemAmount++]=productItem
+      setLocalData('SHOPPING_CART',JSON.stringify(shoppingCartObj));
+      setLocalData('SHOPPING_CART_AMOUNT',cartItemAmount);
+    
+  }
+
+
+}

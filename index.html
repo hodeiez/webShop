@@ -78,8 +78,8 @@
             
               <h3 class="bg-light sticky-top">SHOPPING CART</h3> <button class=" btn btn-secondary btn-block  mt-auto mb-0" >checkout</button>
               <div id="shopping-cart" class="container overflow-auto">
-          <template  id="product-item">
-              <div class="row bg-light rounded">
+          <template id="product-item">
+              <div id="product-id" class="row bg-light rounded">
                 <div class="col-2">
                   <img
                   id="product-item-image"
@@ -266,16 +266,7 @@
           });
           
       //end, then the rest
-let item=$(document).ready(function () {
-  $(this).find('#product-item')})
-  let quantity=$(document).ready(function () {
-  $(this).find('#product-item-quantity')});
-  item.on('click','#quantity-plus',function()
-  
-  {
-    //do sum
-})
-
+      shoppingCartInit();
       setCategories();
       setAllProducts();
      

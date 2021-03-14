@@ -1,5 +1,6 @@
 const currency = "€";
 var shoppingCartObj = null;
+var productsList=null;
 var cartItemAmount = -1;
 //product class
 class Product {
@@ -28,10 +29,11 @@ class ProductItem {
     this.quantity = quantity;
   }
 
-  createProductItemCard(quantity) {
- 
-    return itemTemplate(this.product, quantity);
-  }
+}
+
+function createProductItem(index,quantity){
+    let productItem=new ProductItem(JSON.parse(getLocalData('PRODUCTS_LIST'))[index],quantity)
+    return productItem;
 }
 //VISUAL
 //create HTML for product cards
@@ -67,29 +69,12 @@ function itemTemplate(product, quantity) {
 
   titleNode.innerText = product.title;
   imageNode.src = product.image;
-  quantityNode.value = quantity;
+  quantityNode.innerText=quantity;
+ // quantityNode.value = quantity;
   //idNode.data=product.id;
   return clone;
 }
-//getData from DATABASE
-function createProductItem(selectedId,quantity){
-  let productItem=fetch("https://fakestoreapi.com/products/" + selectedId)
-  .then((res) => res.json())
-  .then((json) => {
-   new ProductItem(
-      new Product(
-        json.id,
-        json.title,
-        json.description,
-        json.image,
-        json.price,
-        json.category
-      ),
-      quantity
-    );
-});
 
-}
 
 //update shoppingCartHtml
 function updateShoppingCartHTML(){
@@ -114,31 +99,7 @@ function setCategories() {
     });
 }
 
-//set products as cards
-function setAllProducts() {
-  // let categories = [];
-  fetch("https://fakestoreapi.com/products")
-    .then((res) => res.json())
-    .then((json) => {
-      for (let i = 0; i < json.length; i++) {
-        let productItem = new Product(
-          json[i].id,
-          json[i].title,
-          json[i].description,
-          json[i].image,
-          json[i].price,
-          json[i].category
-        );
-        let element = productItem.createCard();
-        document.getElementById("products").appendChild(element);
-      }
-    });
 
-  //get all products
-  fetch("https://fakestoreapi.com/products")
-    .then((res) => res.json())
-    .then((json) => console.log(json));
-}
 
 //On click add item to cart
 function addToCart(e) {
@@ -147,27 +108,10 @@ function addToCart(e) {
   
   alert("Added to shopping cart " + e.value);
 //end test
-  let selectedId = e.value;
 
+       let productItem=createProductItem(e.value-1,1);
 
-
-  fetch("https://fakestoreapi.com/products/" + selectedId)
-    .then((res) => res.json())
-    .then((json) => {
-      let productItem = new ProductItem(
-        new Product(
-          json.id,
-          json.title,
-          json.description,
-          json.image,
-          json.price,
-          json.category
-        ),
-        1
-      );
-      
-
-      
+      console.log(productItem);
       //this updates storage
       if(getItemIndex(productItem)>=0){
       updateItemQuantityByIndex(getItemIndex(productItem));
@@ -179,12 +123,13 @@ function addToCart(e) {
 //this will go to a function update html shopping cart
       document
       .getElementById("shopping-cart")
-      .appendChild(productItem.createProductItemCard());
+      .appendChild(itemTemplate(productItem.product,productItem.quantity));
 
       document.getElementById("shopping-cart-icon").innerText = Number(iconText) + 1;
 
     }
-    });
+
+   
 }
 
 //Open the modal with info
@@ -207,6 +152,36 @@ function setLocalData(name, value) {
     ? localStorage.setItem(name, value)
     : localStorage.removeItem(name);
 }
+//set products: save to local storage, and print in HTML
+function setAllProducts() {
+  productsList=new Array();
+  
+    // let categories = [];
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((json) => {
+        for (let i = 0; i < json.length; i++) {
+          let productItem = new Product(
+            json[i].id,
+            json[i].title,
+            json[i].description,
+            json[i].image,
+            json[i].price,
+            json[i].category
+          );
+  
+          productsList.push(productItem);
+          let element = productItem.createCard();
+  
+  
+          document.getElementById("products").appendChild(element);
+        }
+        setLocalData("PRODUCTS_LIST", JSON.stringify(productsList));
+      });
+  
+  }
+
+
 //check storage for shopping cart object
 function shoppingCartInit() {
   shoppingCartObj = new Array();
@@ -214,8 +189,14 @@ function shoppingCartInit() {
   if (getLocalData("SHOPPING_CART") != null) {
     cartItemAmount = getLocalData("SHOPPING_CART_INDEX_COUNT");
     shoppingCartObj = JSON.parse(getLocalData("SHOPPING_CART"));
+
 //update html
 document.getElementById("shopping-cart-icon").innerText = cartItemAmount;
+for(productIndex in shoppingCartObj){
+      document
+      .getElementById("shopping-cart")
+      .appendChild(itemTemplate(shoppingCartObj[productIndex].product,shoppingCartObj[productIndex].quantity));
+}
 
   } else {
     console.log("shopping cart not found in storage");

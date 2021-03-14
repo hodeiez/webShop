@@ -47,6 +47,7 @@ function cardTemplate(id, title, description, image, price) {
   let buyButton = clone.querySelector("#buy-node");
   let modalButton = clone.querySelector("#modal-button");
 
+
   titleNode.innerText = title;
   descriptionNode.innerText = description.substr(0, 150) + "...";
   imageNode.src = image;
@@ -63,25 +64,30 @@ function itemTemplate(product, quantity) {
   let mytemplate = document.querySelector("#product-item");
   let clone = mytemplate.content.cloneNode(true);
   let titleNode = clone.querySelector("#product-item-title");
-  // let idNode= clone.querySelector('#product-id');
+  let idNode= clone.querySelector('#product-id');
   let imageNode = clone.querySelector("#product-item-image");
   let quantityNode = clone.querySelector("#product-item-quantity");
+ let minusNode=clone.querySelector("#quantity-minus");
+ let plusNode=clone.querySelector("#quantity-plus");
 
   titleNode.innerText = product.title;
   imageNode.src = product.image;
   quantityNode.innerText=quantity;
- // quantityNode.value = quantity;
-  //idNode.data=product.id;
+  quantityNode.id = "quantity-of-"+product.id;
+  minusNode.id = "minus-"+product.id;
+  plusNode.id = "plus-"+product.id;
+  idNode.id=product.id;
+  
   return clone;
 }
 
 
 //update shoppingCartHtml
-function updateShoppingCartHTML(){
+function updateShoppingCartItemHTML(productId,newQuantity){
+  $( "#quantity-of-"+productId ).text(newQuantity);
 
 }
-//CONTROLLER
-//INIT
+
 //set categories names
 function setCategories() {
   //let categories = [];
@@ -111,10 +117,10 @@ function addToCart(e) {
 
        let productItem=createProductItem(e.value-1,1);
 
-      console.log(productItem);
       //this updates storage
       if(getItemIndex(productItem)>=0){
       updateItemQuantityByIndex(getItemIndex(productItem));
+      
     //update the html
     }
       else{
@@ -131,6 +137,7 @@ function addToCart(e) {
 
    
 }
+//change quantity from item
 
 //Open the modal with info
 $("#myModal").on("show.bs.modal", function (event) {
@@ -223,4 +230,7 @@ function updateItemQuantityByIndex(index) {
   shoppingCartObj[index].quantity = shoppingCartObj[index].quantity + 1;
   setLocalData("SHOPPING_CART", JSON.stringify(shoppingCartObj));
   setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
+
+  //html update
+  updateShoppingCartItemHTML(shoppingCartObj[index].product.id,shoppingCartObj[index].quantity);
 }

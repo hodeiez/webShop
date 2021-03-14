@@ -75,8 +75,9 @@
           <div id="wrapper" class="">
             <!-- Sidebar -->
             <div id="sidebar-wrapper" class="shadow">
+              
+              <h3 class="bg-light ">SHOPPING CART</h3>
             
-              <h3 class="bg-light sticky-top">SHOPPING CART</h3> <button class=" btn btn-secondary btn-block  mt-auto mb-0" >checkout</button>
               <div id="shopping-cart" class="container overflow-auto">
           <template id="product-item">
               <div id="product-id" class="row bg-light rounded">
@@ -99,7 +100,7 @@
                 </div>
                 
                 <div class="col m-auto">
-                  <button id="quantity-plus" class="btn btn-success rounded-circle page-link ">+</button>
+                  <button id="quantity-plus" class="btn btn-success rounded-circle page-link " value="1" >+</button>
                   
                 </div>
                 <div id="product-item-quantity" class="col-1 m-auto">1
@@ -107,7 +108,7 @@
                 </div>
                 <div class="col m-auto">
                
-                      <button id="quantity-minus" class="btn btn-danger rounded-circle page-link">-</button>
+                      <button id="quantity-minus" class="btn btn-danger rounded-circle page-link" value="-1" >-</button>
                 </div>
                 <div class="col-2 m-auto">
                   <div>remove</div>
@@ -116,8 +117,15 @@
               </template>
        
             </div>
-            
-               
+            <div class="container sticky-bottom">
+              <div class="row bg-white">
+                <div class="col ">TOTAL PRICE</div>
+                <div class="col ">00000</div>
+              </div>
+              <div class="row bg-white">
+            <button class=" btn btn-secondary btn-block sticky-bottom mt-auto mb-0 " >checkout</button>
+          </div>     
+          </div>
              
             
          
@@ -178,7 +186,7 @@
               <div class="col-4">
                 <button
                   id="buy-node"
-                  value="fdsa"
+                  value="default-value"
                   onClick="addToCart(this);"
                   class="mb-0 btn btn-success col"
                 >
@@ -269,6 +277,9 @@
       shoppingCartInit();
       setCategories();
       setAllProducts();
+      
+        
+  
      
     </script>
   </body>

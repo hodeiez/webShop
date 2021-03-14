@@ -27,9 +27,7 @@ class ProductItem{
     this.product=product;
     this.quantity=quantity;
   }
-  getProductId(){
-    return product.id;
-  }
+  
   setProductQ(quantity){
     this.quantity=quantity;
   }
@@ -176,7 +174,8 @@ function addItemToShoppingCart(productItem){
   let updateItem=false;
   //if item exists add quantity
   for(index in shoppingCartObj){
-    if(shoppingCartObj[index].getProductId==productItem.getProductId){
+    if(shoppingCartObj[index].product.id==productItem.product.id){
+    
       shoppingCartObj[index].setProductQ(shoppingCartObj[index].quantity+1);
       updateItem=true;
     }
@@ -197,4 +196,10 @@ updateItem=false;
   }
 
 
+}
+//check if item exists
+function itemExists(productItem){
+  for(index in shoppingCartObj){
+  return shoppingCartObj[index].product.id==productItem.product.id;
+    }
 }

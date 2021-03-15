@@ -69,6 +69,7 @@ function itemTemplate(product, quantity) {
   let quantityNode = clone.querySelector("#product-item-quantity");
  let minusNode=clone.querySelector("#quantity-minus");
  let plusNode=clone.querySelector("#quantity-plus");
+ let removeNode = clone.querySelector("#product-item-remove");
 
   titleNode.innerText = product.title;
   imageNode.src = product.image;
@@ -79,6 +80,7 @@ function itemTemplate(product, quantity) {
   idNode.id=product.id;
   minusNode.value=product.id;
   plusNode.value=product.id;
+  removeNode.dataset.productId=product.id;
   return clone;
 }
 
@@ -86,6 +88,7 @@ function itemTemplate(product, quantity) {
 //update shoppingCartHtml
 function updateShoppingCartItemHTML(productId,newQuantity){
   $( "#quantity-of-"+productId ).text(newQuantity);
+  updateTotalPrice();
 
 }
 
@@ -105,8 +108,6 @@ function setCategories() {
       }
     });
 }
-
-
 
 //On click add item to cart
 function addToCart(e) {
@@ -133,10 +134,9 @@ function addToCart(e) {
       .appendChild(itemTemplate(productItem.product,productItem.quantity));
 
       document.getElementById("shopping-cart-icon").innerText = Number(iconText) + 1;
-
+      productItemFunctionality(); 
     }
-updateTotalPrice();
-   
+  
 }
 //change quantity from item
 
@@ -209,6 +209,7 @@ for(productIndex in shoppingCartObj){
   } else {
     console.log("shopping cart not found in storage");
   }
+  updateTotalPrice();
 }
 
 //add item to cart storage
@@ -234,6 +235,27 @@ function updateItemQuantityByIndex(index,amount) {
 
   //html update
   updateShoppingCartItemHTML(shoppingCartObj[index].product.id,shoppingCartObj[index].quantity);
+ 
+}
+function removeItemByIndex(index){
+  let productItem=shoppingCartObj[index];
+  cartItemAmount--;
+  shoppingCartObj.splice( $.inArray(productItem, shoppingCartObj), 1 );
+  setLocalData("SHOPPING_CART", JSON.stringify(shoppingCartObj));
+  setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
+
+
+  //UPDATE SHOPPING CART HTML
+  
+  $('#'+productItem.product.id).remove();
+  document.getElementById("shopping-cart-icon").innerText = cartItemAmount;
+for(productIndex in shoppingCartObj){
+      document
+      .getElementById("shopping-cart")
+      .appendChild(itemTemplate(shoppingCartObj[productIndex].product,shoppingCartObj[productIndex].quantity));
+}
+updateTotalPrice();
+
 }
 function updateTotalPrice(){
   let totalPrice=0;
@@ -245,15 +267,17 @@ totalPrice+=Number(shoppingCartObj[index].quantity)*Number(shoppingCartObj[index
   $('#shopping-cart-total-price').text(totalPrice.toFixed(2)+currency);
 }
 
+
+function productItemFunctionality(){
 //change quantity of item using plus-minus buttons
 $(document).ready(function(){
 $('.quantity-minus').on('click',function(){
   let target=$('#quantity-of-'+$(this).val())
   if(target.text()>1){ 
 
-//UPDATE DATABASE and HTML
+//update
 updateItemQuantityByIndex(getItemIndex($(this).val()),-1)
-updateTotalPrice()
+
 }
 else{
   console.log("can't go to 0, user has to remove!")
@@ -263,13 +287,18 @@ $('.quantity-plus').on('click',function(){
   let target=$('#quantity-of-'+$(this).val())
   if(target.text()<50){ 
 
-//UPDATE DATABASE and HTML
+//update quantity and then totalprice
 updateItemQuantityByIndex(getItemIndex($(this).val()),1)
-updateTotalPrice()
+
 }
 else{
   alert("you can't buy more than 50 items!")
 }
 })
-updateTotalPrice()
+$('.remove-product-item').on('click', function(){
+  let target=$(this).attr('data-product-id')
+  removeItemByIndex(getItemIndex(target));
+  console.log(target);
 })
+})
+}

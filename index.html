@@ -77,9 +77,10 @@
               <h3 class="bg-light ">SHOPPING CART</h3>
             
               <div id="shopping-cart" class="container overflow-auto">
+
           <template id="product-item">
-              <div id="product-id" class="row bg-light rounded">
-                <div class="col-2">
+              <div id="product-id" class="row bg-light rounded m-1 shadow">
+                <div class="col-2 m-auto">
                   <img
                   id="product-item-image"
                   src="http://pngimg.com/uploads/jacket/jacket_PNG8058.png"
@@ -97,19 +98,27 @@
                   <p>MENS JACK</p>
                 </div>
                 
-                <div class="col m-auto">
+                <div class="col m-auto pr-0 pl-2">
                   <button id="quantity-plus" class="quantity-plus btn btn-success rounded-circle page-link " value="1" >+</button>
                   
                 </div>
-                <div id="product-item-quantity" class="col-1 m-auto">1
+                <div id="product-item-quantity" class="col-1 m-auto pr-1 pl-1">1
                   
                 </div>
-                <div class="col m-auto">
+                <div class="col m-auto pr-0 pl-0">
                
                       <button id="quantity-minus" class="quantity-minus btn btn-danger rounded-circle page-link" value="-1" >-</button>
                 </div>
                 <div class="col-2 m-auto">
-                  <div>remove</div>
+                  <span id="product-item-remove" class="btn bg-transparent remove-product-item" data-product-id="">
+                    <img
+                    src="images/iconmonstr-trash-can-1.svg"
+                    alt="shopping-cart icon"
+                    width="20"
+                    height="20"
+                    class="ml-auto"
+                  />
+                
                 </div>
               </div>
               </template>
@@ -275,6 +284,7 @@
       shoppingCartInit();
       setCategories();
       setAllProducts();
+      productItemFunctionality();
       
         
   

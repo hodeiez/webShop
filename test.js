@@ -249,11 +249,12 @@ function removeItemByIndex(index){
   
   $('#'+productItem.product.id).remove();
   document.getElementById("shopping-cart-icon").innerText = cartItemAmount;
-for(productIndex in shoppingCartObj){
+/*for(productIndex in shoppingCartObj){
       document
       .getElementById("shopping-cart")
       .appendChild(itemTemplate(shoppingCartObj[productIndex].product,shoppingCartObj[productIndex].quantity));
 }
+*/
 updateTotalPrice();
 
 }

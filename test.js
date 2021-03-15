@@ -77,7 +77,8 @@ function itemTemplate(product, quantity) {
   minusNode.id = "minus-"+product.id;
   plusNode.id = "plus-"+product.id;
   idNode.id=product.id;
-  
+  minusNode.value=product.id;
+  plusNode.value=product.id;
   return clone;
 }
 
@@ -118,8 +119,8 @@ function addToCart(e) {
        let productItem=createProductItem(e.value-1,1);
 
       //this updates storage
-      if(getItemIndex(productItem)>=0){
-      updateItemQuantityByIndex(getItemIndex(productItem));
+      if(getItemIndex(productItem.product.id)>=0){
+      updateItemQuantityByIndex(getItemIndex(productItem.product.id),1);
       
     //update the html
     }
@@ -134,7 +135,7 @@ function addToCart(e) {
       document.getElementById("shopping-cart-icon").innerText = Number(iconText) + 1;
 
     }
-
+updateTotalPrice();
    
 }
 //change quantity from item
@@ -219,18 +220,55 @@ function addItemToShoppingCart(productItem) {
 
 }
 //check if item exists
-function getItemIndex(productItem) {
+function getItemIndex(productId) {
   for (index in shoppingCartObj) {
-    if (shoppingCartObj[index].product.id == productItem.product.id)
+    if (shoppingCartObj[index].product.id == productId)
       return index;
   }
   return -1;
 }
-function updateItemQuantityByIndex(index) {
-  shoppingCartObj[index].quantity = shoppingCartObj[index].quantity + 1;
+function updateItemQuantityByIndex(index,amount) {
+  shoppingCartObj[index].quantity = shoppingCartObj[index].quantity + amount;
   setLocalData("SHOPPING_CART", JSON.stringify(shoppingCartObj));
   setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
 
   //html update
   updateShoppingCartItemHTML(shoppingCartObj[index].product.id,shoppingCartObj[index].quantity);
 }
+function updateTotalPrice(){
+  let totalPrice=0;
+  for(index in shoppingCartObj){
+totalPrice+=Number(shoppingCartObj[index].quantity)*Number(shoppingCartObj[index].product.price)
+
+  }
+  console.log(totalPrice)
+  $('#shopping-cart-total-price').text(totalPrice);
+}
+//change quantity of item using plus-minus buttons
+$(document).ready(function(){
+$('.quantity-minus').on('click',function(){
+  let target=$('#quantity-of-'+$(this).val())
+  if(target.text()>1){ 
+
+//UPDATE DATABASE and HTML
+updateItemQuantityByIndex(getItemIndex($(this).val()),-1)
+updateTotalPrice()
+}
+else{
+  console.log("can't go to 0, user has to remove!")
+}
+})
+$('.quantity-plus').on('click',function(){
+  let target=$('#quantity-of-'+$(this).val())
+  if(target.text()<50){ 
+
+//UPDATE DATABASE and HTML
+updateItemQuantityByIndex(getItemIndex($(this).val()),1)
+updateTotalPrice()
+}
+else{
+  alert("you can't buy more than 50 items!")
+}
+})
+updateTotalPrice()
+})

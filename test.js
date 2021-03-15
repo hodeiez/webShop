@@ -242,8 +242,9 @@ totalPrice+=Number(shoppingCartObj[index].quantity)*Number(shoppingCartObj[index
 
   }
   console.log(totalPrice)
-  $('#shopping-cart-total-price').text(totalPrice);
+  $('#shopping-cart-total-price').text(totalPrice.toFixed(2)+currency);
 }
+
 //change quantity of item using plus-minus buttons
 $(document).ready(function(){
 $('.quantity-minus').on('click',function(){

@@ -130,7 +130,7 @@
                 <div id="shopping-cart-total-price" class="col "></div>
               </div>
               <div class="row bg-white">
-            <button class=" btn btn-secondary btn-block sticky-bottom mt-auto mb-0 " >checkout</button>
+            <button id="check-out-button" class=" btn btn-secondary btn-block sticky-bottom mt-auto mb-0 ">checkout</button>
           </div>     
           </div>
              
@@ -195,7 +195,12 @@
                   id="buy-node"
                   value="default-value"
                   onClick="addToCart(this);"
-                  class="mb-0 btn btn-success col"
+                  class="mb-0 btn btn-success col" 
+                  data-title="this is title" 
+                  data-description="this is description" 
+                  data-toggle="modal" 
+                  data-target="#added-modal"
+                  type="button"
                 >
                   buy
                 </button>
@@ -208,7 +213,7 @@
               </div>
               
               <div class="col-4">
-                <button id="modal-button" type="button" onClick="" class="mb-0 btn btn-light col" data-title="this is title" data-description="this is description" data-toggle="modal" data-target="#myModal">
+                <button id="modal-button" type="button" onClick="" class="mb-0 btn btn-light col" data-title="this is title" data-image="" data-description="this is description" data-toggle="modal" data-target="#info-modal">
                   more info
                 </button>
               </div>
@@ -219,7 +224,7 @@
         <!--test modal-->
         <div
           class="modal fade"
-          id="myModal"
+          id="info-modal"
           tabindex="-1"
           role="dialog"
           
@@ -240,7 +245,12 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">...</div>
+              <div class="row">
+                <div class="col">
+                  <img class="modal-image img-responsive img-thumbnail" src="" alt="product-image"/>
+                </div>
+              <div class="col modal-body">...</div>
+            </div>
               <div class="modal-footer">
                 
               </div>
@@ -248,7 +258,37 @@
           </div>
         </div>
         <!--end modal-->
-  
+        <div
+        class="modal fade"
+        id="added-modal"
+        tabindex="-1"
+        role="dialog"
+        
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Modal title
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
       </div>
         <!--end sidebar-->
       </div>

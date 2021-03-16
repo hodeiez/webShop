@@ -18,7 +18,7 @@
         <a class="navbar-brand" href="index.html">go back</a>
     </nav>
     <div class="container">   <h1>Confirm Order</h1>
-    <h4>Please check your delivery and fill the form to confirm your order</h4>
+    <h4>Please check your order and fill the form to receive it as soon as possible! :)</h4>
     <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -27,13 +27,13 @@
                     <th scope="col">Quantity</th>
                     <th scope="col">Sum</th>
                 </tr>
-                <tbody>
-                    <template>
-                    <tr>
-                      <th class="product-title-table" scope="row">kofdskapofsdkpofdasko</th>
-                      <td class="product-price-table" >234,3</td>
-                      <td class="product-quantity-table">2</td>
-                      <td class="product-sum-table">468</td>
+                <tbody id="order-table-body">
+                    <template id="product-row">
+                    <tr >
+                      <th id="product-title-table" scope="row">kofdskapofsdkpofdasko</th>
+                      <td id="product-price-table" >234,3</td>
+                      <td id="product-quantity-table">2</td>
+                      <td id="product-sum-table">468</td>
                     </tr>
                 </template>
                     <tr>
@@ -91,5 +91,9 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="test.js"></script>
+    <script>
+      orderInit()
+    </script>
 </body>
 </html>

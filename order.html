@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm order</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="index.html">go back</a>
+    </nav>
+    <div class="container">   <h1>Confirm Order</h1>
+    <h4>Please check your delivery and fill the form to confirm your order</h4>
+    <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Product title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Sum</th>
+                </tr>
+                <tbody>
+                    <template>
+                    <tr>
+                      <th class="product-title-table" scope="row">kofdskapofsdkpofdasko</th>
+                      <td class="product-price-table" >234,3</td>
+                      <td class="product-quantity-table">2</td>
+                      <td class="product-sum-table">468</td>
+                    </tr>
+                </template>
+                    <tr>
+                        <th colspan="2"></th>
+                        <td  ><i>Taxes</i></td>
+                        <td id="taxes-number">9093240</td>
+                      </tr>
+                      <tr>
+                        <th colspan="2"></th>
+                        <td  ><i>Delivery Costs:</i></td>
+                        <td id="costs-number">9093240</td>
+                      </tr>
+                    <tr>
+                        <th colspan="2"></th>
+                        <td><strong>To pay:</strong></td>
+                        <td  id="total-price" >9093240</td>
+                      </tr>
+
+            </thead>
+    </table>
+    <div class="row mt-5">
+        <div class="col">
+            <h2>Write your delivery data</h2>
+        </div>
+    </div>
+    <form>
+    <div class="form-group">
+    <label for="name-form">Name</label>
+    <input id="name-form" type="text" class="form-control" placeholder="Your name">
+    <label for="surname-form">Surname</label>
+    <input id="surname-form" type="text" class="form-control" placeholder="Your surname">
+    <label for="email-form">E-mail</label>
+    <input id="email-form" type="email" class="form-control" placeholder="my@email.com">
+    <label for="phone-form">Telephone number</label>
+    <input id="phone-form" type="text" class="form-control" placeholder="79695843">
+    <label for="address-form">Delivery address</label>
+    <input id="address-form" type="text" class="form-control" placeholder="Your surname">
+</div>
+    <button id="submit" class="btn btn-primary">Confirm and Submit</button>
+</form>
+
+</div> 
+<script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>

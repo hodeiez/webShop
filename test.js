@@ -1,5 +1,5 @@
 const currency = "€";
-var shoppingCartObj = null;
+var shopingCartObj = null;
 var productsList=null;
 var cartItemAmount = -1;
 //product class
@@ -78,9 +78,16 @@ function itemTemplate(product, quantity) {
   minusNode.id = "minus-"+product.id;
   plusNode.id = "plus-"+product.id;
   idNode.id=product.id;
-  minusNode.value=product.id;
-  plusNode.value=product.id;
+
+  plusNode.dataset.productId=product.id;
+  minusNode.dataset.productId=product.id;
   removeNode.dataset.productId=product.id;
+
+  minusNode.setAttribute('onclick','substractQuantity(this);')
+  plusNode.setAttribute('onclick','sumQuantity(this);')
+  removeNode.setAttribute('onclick','removeItem(this);')
+
+
   return clone;
 }
 
@@ -134,7 +141,7 @@ function addToCart(e) {
       .appendChild(itemTemplate(productItem.product,productItem.quantity));
 
       document.getElementById("shopping-cart-icon").innerText = Number(iconText) + 1;
-      productItemFunctionality(); 
+      //productItemFunctionality(); 
     }
   
 }
@@ -192,18 +199,18 @@ function setAllProducts() {
 
 //check storage for shopping cart object
 function shoppingCartInit() {
-  shoppingCartObj = new Array();
+  shopingCartObj = new Array();
   cartItemAmount = 0;
   if (getLocalData("SHOPPING_CART") != null) {
     cartItemAmount = getLocalData("SHOPPING_CART_INDEX_COUNT");
-    shoppingCartObj = JSON.parse(getLocalData("SHOPPING_CART"));
+    shopingCartObj = JSON.parse(getLocalData("SHOPPING_CART"));
 
 //update html
 document.getElementById("shopping-cart-icon").innerText = cartItemAmount;
-for(productIndex in shoppingCartObj){
+for(productIndex in shopingCartObj){
       document
       .getElementById("shopping-cart")
-      .appendChild(itemTemplate(shoppingCartObj[productIndex].product,shoppingCartObj[productIndex].quantity));
+      .appendChild(itemTemplate(shopingCartObj[productIndex].product,shopingCartObj[productIndex].quantity));
 }
 
   } else {
@@ -215,53 +222,54 @@ for(productIndex in shoppingCartObj){
 //add item to cart storage
 function addItemToShoppingCart(productItem) {
 
-    shoppingCartObj[cartItemAmount++] = productItem;
-    setLocalData("SHOPPING_CART", JSON.stringify(shoppingCartObj));
+    shopingCartObj[cartItemAmount++] = productItem;
+    setLocalData("SHOPPING_CART", JSON.stringify(shopingCartObj));
     setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
 
 }
 //check if item exists
 function getItemIndex(productId) {
-  for (index in shoppingCartObj) {
-    if (shoppingCartObj[index].product.id == productId)
+  for (index in shopingCartObj) {
+    if (shopingCartObj[index].product.id == productId)
       return index;
   }
   return -1;
 }
 function updateItemQuantityByIndex(index,amount) {
-  shoppingCartObj[index].quantity = shoppingCartObj[index].quantity + amount;
-  setLocalData("SHOPPING_CART", JSON.stringify(shoppingCartObj));
+  console.log('index to: ' +index + ' amount '+ amount);
+  shopingCartObj[index].quantity = shopingCartObj[index].quantity + amount;
+  setLocalData("SHOPPING_CART", JSON.stringify(shopingCartObj));
   setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
 
   //html update
-  updateShoppingCartItemHTML(shoppingCartObj[index].product.id,shoppingCartObj[index].quantity);
+  updateShoppingCartItemHTML(shopingCartObj[index].product.id,shopingCartObj[index].quantity);
  
 }
 function removeItemByIndex(index){
-  let productItem=shoppingCartObj[index];
+  console.log('index: '+index)
+ 
+  let productItem=shopingCartObj[index];
   cartItemAmount--;
-  shoppingCartObj.splice( $.inArray(productItem, shoppingCartObj), 1 );
-  setLocalData("SHOPPING_CART", JSON.stringify(shoppingCartObj));
-  setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
+
+  shopingCartObj.splice(index,1);
+
+  setLocalData("SHOPPING_CART", JSON.stringify(shopingCartObj));
+  setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount-1);
 
 
   //UPDATE SHOPPING CART HTML
-  
+ 
   $('#'+productItem.product.id).remove();
   document.getElementById("shopping-cart-icon").innerText = cartItemAmount;
-/*for(productIndex in shoppingCartObj){
-      document
-      .getElementById("shopping-cart")
-      .appendChild(itemTemplate(shoppingCartObj[productIndex].product,shoppingCartObj[productIndex].quantity));
-}
-*/
+
 updateTotalPrice();
 
 }
+
 function updateTotalPrice(){
   let totalPrice=0;
-  for(index in shoppingCartObj){
-totalPrice+=Number(shoppingCartObj[index].quantity)*Number(shoppingCartObj[index].product.price)
+  for(index in shopingCartObj){
+totalPrice+=Number(shopingCartObj[index].quantity)*Number(shopingCartObj[index].product.price)
 
   }
   console.log(totalPrice)
@@ -269,37 +277,24 @@ totalPrice+=Number(shoppingCartObj[index].quantity)*Number(shoppingCartObj[index
 }
 
 
-function productItemFunctionality(){
-//change quantity of item using plus-minus buttons
-$(document).ready(function(){
-$('.quantity-minus').on('click',function(){
-  let target=$('#quantity-of-'+$(this).val())
-  if(target.text()>1){ 
+function substractQuantity(e){
+  const productId=e.dataset.productId;
+  const indexOfItem=getItemIndex(productId);
+  if(shopingCartObj[indexOfItem].quantity>1){
+    updateItemQuantityByIndex(indexOfItem,-1);
+  }
+}
+function sumQuantity(e){
+  const productId=e.dataset.productId;
+  const indexOfItem=getItemIndex(productId);
+  if(shopingCartObj[indexOfItem].quantity<50){
+    updateItemQuantityByIndex(indexOfItem,1);
+  }
+}
+function removeItem(e){
+  const productId=e.dataset.productId;
+  const indexOfItem=getItemIndex(productId);
+  removeItemByIndex(indexOfItem);
+}
 
-//update
-updateItemQuantityByIndex(getItemIndex($(this).val()),-1)
 
-}
-else{
-  console.log("can't go to 0, user has to remove!")
-}
-})
-$('.quantity-plus').on('click',function(){
-  let target=$('#quantity-of-'+$(this).val())
-  if(target.text()<50){ 
-
-//update quantity and then totalprice
-updateItemQuantityByIndex(getItemIndex($(this).val()),1)
-
-}
-else{
-  alert("you can't buy more than 50 items!")
-}
-})
-$('.remove-product-item').on('click', function(){
-  let target=$(this).attr('data-product-id')
-  removeItemByIndex(getItemIndex(target));
-  console.log(target);
-})
-})
-}

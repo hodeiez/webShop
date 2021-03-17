@@ -1,39 +1,10 @@
-//few start variables
-const currency = "€";
-var shopingCartObj = null;
-var productsList = null;
-var cartItemAmount = -1;
-const deliveryCosts=15;
-const taxesBase=12;
 
-//created two custom classes, not necessary but it makes the code more readable for me
-class Product {
-  constructor(id, title, description, image, price, category) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.image = image;
-    this.price = price;
-    this.category = category;
-  }
-  createCard() {
-    return cardTemplate(
-      this.id,
-      this.title,
-      this.description,
-      this.image,
-      this.price
-    );
-  }
-}
-
-class ProductItem {
-  constructor(product, quantity) {
-    this.product = product;
-    this.quantity = quantity;
-  }
-}
-
+/**
+ * Function to create ProductItem
+ * @param {index of productItem in shopingCartObj} index 
+ * @param {quantity of porducts in product item*} quantity 
+ * @returns  returns a productItem object
+ */
 function createProductItem(index, quantity) {
   let productItem = new ProductItem(
     JSON.parse(getLocalData("PRODUCTS_LIST"))[index],
@@ -41,8 +12,9 @@ function createProductItem(index, quantity) {
   );
   return productItem;
 }
-//VISUAL
-//create HTML for product cards
+/**
+ * creates a product html element and its contents by cloning a template
+ */
 function cardTemplate(id, title, description, image, price) {
   let mytemplate = document.querySelector("#myTemplate");
   let clone = mytemplate.content.cloneNode(true);
@@ -66,7 +38,9 @@ function cardTemplate(id, title, description, image, price) {
   return clone;
 }
 
-//create HTML for product items in Shopping cart
+/**
+ * creates a product item html element and its contents by cloning a template
+ */
 function itemTemplate(product, quantity) {
   let mytemplate = document.querySelector("#product-item");
   let clone = mytemplate.content.cloneNode(true);
@@ -97,15 +71,12 @@ function itemTemplate(product, quantity) {
   return clone;
 }
 
-//update shoppingCartHtml
-function updateShoppingCartItemHTML(productId, newQuantity) {
-  $("#quantity-of-" + productId).text(newQuantity);
-  updateTotalPrice();
-}
 
-//set categories names
+
+/**
+ * gets categories from database and appends in "#categories" as a list
+ */
 function setCategories() {
-  //let categories = [];
   fetch("https://fakestoreapi.com/products/categories")
     .then((res) => res.json())
     .then((json) => {
@@ -119,22 +90,21 @@ function setCategories() {
     });
 }
 
-//On click add item to cart
+/**
+ * 
+ * event listener for "buy" button, adds a product to shopping cart
+ */
 function addToCart(e) {
 
   let iconText = document.getElementById("shopping-cart-icon").innerText;
-
   let productItem = createProductItem(e.value - 1, 1);
 
-  //this updates storage
+ 
   if (getItemIndex(productItem.product.id) >= 0) {
     updateItemQuantityByIndex(getItemIndex(productItem.product.id), 1);
-
-    //update the html
   } else {
     addItemToShoppingCart(productItem);
 
-    //this will go to a function update html shopping cart
     document
       .getElementById("shopping-cart")
       .appendChild(itemTemplate(productItem.product, productItem.quantity));
@@ -144,29 +114,38 @@ function addToCart(e) {
  
   }
 }
-//change quantity from item
 
 
 
-//working with storage
-//setting storage local data getter and setter
+
+
+/**
+ *  gets by given name the stored object in local data
+ */
 function getLocalData(name) {
   return localStorage.getItem(name);
 }
+/**
+ *  sets an object in local storage with given name and value
+ */
 function setLocalData(name, value) {
   return value != null
     ? localStorage.setItem(name, value)
     : localStorage.removeItem(name);
 }
+/**
+ *  removes from local storage objects relative to shopping cart
+ */
 function clearShoppingCartData(){
     localStorage.removeItem("SHOPPING_CART_INDEX_COUNT");
     localStorage.removeItem("SHOPPING_CART");
 }
-//set products: save to local storage, and print in HTML
+
+/**
+ * gets products from database, stores them in local storage and "prints" them.
+ */
 function setAllProducts() {
   productsList = new Array();
-
-  // let categories = [];
   fetch("https://fakestoreapi.com/products")
     .then((res) => res.json())
     .then((json) => {
@@ -189,18 +168,20 @@ function setAllProducts() {
     });
 }
 
-//check storage for shopping cart object
+/**
+ * updates the shopping cart from the local storage
+ */
 function shoppingCartInit() {
   if(getLocalData("SHOPPING_CART_INDEX_COUNT")<0){
     clearShoppingCartData()
   }
+
   shopingCartObj = new Array();
   cartItemAmount = 0;
   if (getLocalData("SHOPPING_CART") != null) {
     cartItemAmount = getLocalData("SHOPPING_CART_INDEX_COUNT");
     shopingCartObj = JSON.parse(getLocalData("SHOPPING_CART"));
 
-    //update html
     document.getElementById("shopping-cart-icon").innerText = cartItemAmount<0?0:cartItemAmount;
     for (productIndex in shopingCartObj) {
       document
@@ -218,16 +199,20 @@ function shoppingCartInit() {
   updateTotalPrice();
 }
 
-//add item to cart storage
+/**
+ *   adds item to shoping cart and updates the total price
+ */
 function addItemToShoppingCart(productItem) {
-  console.log(cartItemAmount);
   shopingCartObj[cartItemAmount++] = productItem;
   setLocalData("SHOPPING_CART", JSON.stringify(shopingCartObj));
   setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
   updateTotalPrice();
 }
 
-//check if item exists
+/**
+ * 
+ * returns the index of a prouct item in local storage shopping cart array
+ */
 function getItemIndex(productId) {
   for (index in shopingCartObj) {
     if (shopingCartObj[index].product.id == productId) return index;
@@ -235,38 +220,49 @@ function getItemIndex(productId) {
   return -1;
 }
 
-
+/**
+ * updates quantity of a product item by given index and quantity (amount)
+ */
 function updateItemQuantityByIndex(index, amount) {
   console.log("index to: " + index + " amount " + amount);
   shopingCartObj[index].quantity = shopingCartObj[index].quantity + amount;
   setLocalData("SHOPPING_CART", JSON.stringify(shopingCartObj));
   setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount);
 
-  //html update
-  updateShoppingCartItemHTML(
+  updateShoppingCartItemQuantity(
     shopingCartObj[index].product.id,
     shopingCartObj[index].quantity
   );
 }
-function removeItemByIndex(index) {
-  console.log("index: " + index);
 
+/**
+ * updates the quantity element of a product item
+ */
+ function updateShoppingCartItemQuantity(productId, newQuantity) {
+  $("#quantity-of-" + productId).text(newQuantity);
+  updateTotalPrice();
+}
+
+/**
+ *  removes an item from shopping cart
+ */
+function removeItemByIndex(index) {
+  
   let productItem = shopingCartObj[index];
   cartItemAmount--;
-
   shopingCartObj.splice(index, 1);
 
   setLocalData("SHOPPING_CART", JSON.stringify(shopingCartObj));
   setLocalData("SHOPPING_CART_INDEX_COUNT", cartItemAmount - 1);
-
-  //UPDATE SHOPPING CART HTML
 
   $("#" + productItem.product.id).remove();
   document.getElementById("shopping-cart-icon").innerText = cartItemAmount;
 
   updateTotalPrice();
 }
-
+/**
+ * updates the total price HTML element, calculating from local storage
+ */
 function updateTotalPrice() {
   let totalPrice = 0;
   for (index in shopingCartObj) {
@@ -277,7 +273,9 @@ function updateTotalPrice() {
   console.log(totalPrice);
   $("#shopping-cart-total-price").text(totalPrice.toFixed(2) + currency);
 }
-
+/**
+ * event listener to substract quantity of an item
+ */
 function substractQuantity(e) {
   const productId = e.dataset.productId;
   const indexOfItem = getItemIndex(productId);
@@ -285,6 +283,9 @@ function substractQuantity(e) {
     updateItemQuantityByIndex(indexOfItem, -1);
   }
 }
+/**
+ * event listener to add quantity of an item
+ */
 function sumQuantity(e) {
   const productId = e.dataset.productId;
   const indexOfItem = getItemIndex(productId);
@@ -292,12 +293,18 @@ function sumQuantity(e) {
     updateItemQuantityByIndex(indexOfItem, 1);
   }
 }
+/**
+ * event listener to remove item
+ */
 function removeItem(e) {
   const productId = e.dataset.productId;
   const indexOfItem = getItemIndex(productId);
   removeItemByIndex(indexOfItem);
 }
-//Open the modal with info
+
+/**
+ * listens to "info" button and retrieves a modal with info
+ */
 $("#info-modal").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var title = button.data("title");
@@ -308,6 +315,11 @@ $("#info-modal").on("show.bs.modal", function (event) {
   modal.find(".modal-body").text(description);
   modal.find(".modal-image").attr("src",image);
 });
+
+/**
+ * listens to buy button and retrieves a modal
+ */
+
 $("#added-modal").on("show.bs.modal", function (event) {
   console.log('fired')
   var button = $(event.relatedTarget);
@@ -317,10 +329,14 @@ $("#added-modal").on("show.bs.modal", function (event) {
   modal.find(".modal-title").text(title);
   modal.find(".modal-body").text(description);
 });
+
+/**
+ * listens to "check out" button and redirects to order.html 
+ */
 $('#check-out-button').click(function(){
   if(shopingCartObj.length>0)
      window.location.href='order.html'
-    //will add some message  when cart is empty
+    //will add some message when cart is empty
      
   
 })
@@ -353,8 +369,8 @@ template.find('#product-title-table').text(item.product.title)
 template.find('#product-quantity-table').text(item.quantity)
 template.find('#product-price-table').text(item.product.price)
 template.find('#product-sum-table').text(Number(item.product.price)*item.quantity)
-console.log(template)
 $('#order-table-body').prepend(template)
 })
 
 }
+

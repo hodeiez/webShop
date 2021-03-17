@@ -150,9 +150,10 @@ function clearShoppingCartData(){
 function setAllProducts() {
   productsList = new Array();
   //this id the api address I was using, but sometimes is down, so, now it feches to a local json file 
-  //"https://fakestoreapi.com/products"
+  //"https://fakestoreapi.com/products" 
  //'http://webacademy.se/fakestore/'
-  //"backup.json"
+  //"backup.json" 
+
   fetch('http://webacademy.se/fakestore/')
     .then((res) => res.json())
     .then((json) => {

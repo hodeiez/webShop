@@ -146,7 +146,9 @@ function clearShoppingCartData(){
  */
 function setAllProducts() {
   productsList = new Array();
-  fetch("https://fakestoreapi.com/products")
+  //this id the api address I was using, but sometimes is down, so, now it feches to a local json file 
+  //"https://fakestoreapi.com/products"
+  fetch('backup.json')
     .then((res) => res.json())
     .then((json) => {
       json.forEach((product) => {
@@ -355,7 +357,7 @@ function fillOrderTable(){
   fillOrderRow()
   $('#taxes-number').text(taxesPrice+currency)
   $('#costs-number').text(deliveryCosts+currency)
-  $('#total-price').text(Number(basePrice)+Number(taxesPrice)+Number(deliveryCosts) + currency)
+  $('#total-price').text((Number(basePrice)+Number(taxesPrice)+Number(deliveryCosts)).toFixed(2) + currency)
 
 
 

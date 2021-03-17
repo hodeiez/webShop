@@ -31,6 +31,7 @@
                     <th scope="col">Quantity</th>
                     <th scope="col">Sum</th>
                 </tr>
+              </thead>
                 <tbody id="order-table-body">
                     <template id="product-row">
                     <tr >
@@ -39,6 +40,7 @@
                       <td id="product-quantity-table">2</td>
                       <td id="product-sum-table">468</td>
                     </tr>
+                  
                 </template>
                     <tr>
                         <th colspan="2"></th>
@@ -56,7 +58,7 @@
                         <td  id="total-price" >9093240</td>
                       </tr>
 
-            </thead>
+            
     </table>
     <div class="row mt-5">
         <div class="col">
@@ -64,37 +66,47 @@
         </div>
     </div>
     <form>
-    <div class="form-group">
+    <div class="form-group needs-validation" novalidate>
     <label for="name-form">Name</label>
-    <input id="name-form" type="text" class="form-control" placeholder="Your name">
+    <input id="name-form" type="text" class="form-control" title="write your name" placeholder="Your name" required>
+    <div class="invalid-feedback">
+      not valid
+    </div>
+
     <label for="surname-form">Surname</label>
-    <input id="surname-form" type="text" class="form-control" placeholder="Your surname">
+    <input id="surname-form" type="text" class="form-control" placeholder="Your surname"required >
     <label for="email-form">E-mail</label>
-    <input id="email-form" type="email" class="form-control" placeholder="my@email.com">
-    <label for="phone-form">Telephone number</label>
-    <input id="phone-form" type="text" class="form-control" placeholder="79695843">
+    <input id="email-form" type="email" class="form-control" placeholder="my@email.com" required>
+    <label for="phone-form is-in">Telephone number</label>
+    <input id="phone-form" type="text" class="form-control" placeholder="79695843" required>
     <label for="address-form">Delivery address</label>
-    <input id="address-form" type="text" class="form-control" placeholder="Your surname">
+    <input id="address-form" type="text" class="form-control" placeholder="Your surname" required>
 </div>
-    <button id="submit" class="btn btn-primary">Confirm and Submit</button>
+    <button id="submit" class="btn btn-primary" type="submit">Confirm and Submit</button>
 </form>
 
 </div> 
 <script
-src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-crossorigin="anonymous"
-></script>
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+    integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+    crossorigin="anonymous"></script>
+
+        <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"
+      ></script>
+     
+    
     
     
 
@@ -104,6 +116,40 @@ crossorigin="anonymous"
     <script>
       orderInit()
      
+      $('#submit').click(function (){
+        //is blank
+      if( $('#phone-form').val().isNumeric(false) ) {
+        console.log('notValid')
+         showNotValid('#phone-form')
+         $('#phone-form').addClass('.is-valid')
+        
+    }}
+
+        )
+     $('#name-form').click(function() {
+       
+  
+      $(this).effect('shake')
+         // $(this).tooltip()
+          $(this).animate({
+            borderColor:'red',
+          }).delay(1000)
+          $(this).animate({
+            borderColor:'gray'
+          })
+     }
+     )
+
+     function showNotValid(element){
+      $(element).effect('shake')
+         // $(this).tooltip()
+          $(element).animate({
+            borderColor:'red',
+          }).delay(1000)
+          $(element).animate({
+            borderColor:'gray'
+          })
+     }
     </script>
 </body>
 </html>

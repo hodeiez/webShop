@@ -154,7 +154,7 @@ function setAllProducts() {
  //'http://webacademy.se/fakestore/'
   //"backup.json" 
 
-  fetch('http://webacademy.se/fakestore/')
+  fetch('backup.json')
     .then((res) => res.json())
     .then((json) => {
       json.forEach((product) => {

@@ -13,6 +13,7 @@
  /**
   * custom classes Product amd Product Item, no real need for them, but code is more readable this way
   */
+
  class Product {
    constructor(id, title, description, image, price, category) {
      this.id = id;

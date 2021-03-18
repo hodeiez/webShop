@@ -12,6 +12,7 @@ function createProductItem(index, quantity) {
   );
   return productItem;
 }
+
 /**
  * creates a product html element and its contents by cloning a template
  */

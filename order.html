@@ -67,21 +67,43 @@
     </div>
     <form>
     <div class="form-group needs-validation" novalidate>
+      <div class="row">
+        <div class="col">
     <label for="name-form">Name</label>
     <input id="name-form" type="text" class="form-control" title="write your name" placeholder="Your name" required>
     <div class="invalid-feedback">
       not valid
     </div>
-
+  </div>
+  <div class="col">
     <label for="surname-form">Surname</label>
     <input id="surname-form" type="text" class="form-control" placeholder="Your surname"required >
+  </div>
+  </div>
+  <div class="row">
+    <div class="col">
     <label for="email-form">E-mail</label>
     <input id="email-form" type="email" class="form-control" placeholder="my@email.com" required>
+    <div class="col">
     <label for="phone-form is-in">Telephone number</label>
     <input id="phone-form" type="text" class="form-control" placeholder="79695843" required>
-    <label for="address-form">Delivery address</label>
-    <input id="address-form" type="text" class="form-control" placeholder="Your surname" required>
-</div>
+  </div>
+  </div>
+  </div>
+
+    <label for="address-form">Address</label>
+    <input id="address-form" type="text" class="form-control" placeholder="Your address" required>
+    <div class="row">
+      <div class="col">
+    <label for="city-form">City</label>
+    <input id="city-form" type="text" class="form-control" placeholder="Your city" required>
+  </div>
+  <div class="col">
+    <label for="zip-form is-in">Zip</label>
+    <input id="zip-form" type="text" class="form-control" placeholder="120 59" required>
+  </div>
+  </div>
+  </div>
     <button id="submit" class="btn btn-primary" type="submit">Confirm and Submit</button>
 </form>
 
@@ -115,10 +137,17 @@
     
     <script>
       orderInit()
-     
+     let $nameField=$('#name-form'),
+     $surnameField=$('#surname-form'),
+     $emailField=$('email-form'),
+     $phoneField=$('phone-form'),
+     $addressField=$('address-form')
+
+
+
       $('#submit').click(function (){
         //is blank
-      if( $('#phone-form').val().isNumeric(false) ) {
+      if( !$phoneField.isNumber) {
         console.log('notValid')
          showNotValid('#phone-form')
          $('#phone-form').addClass('.is-valid')

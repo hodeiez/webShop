@@ -16,14 +16,14 @@ function createProductItem(index, quantity) {
  * creates a product html element and its contents by cloning a template
  */
 function cardTemplate(id, title, description, image, price) {
-  let mytemplate = document.querySelector("#myTemplate");
-  let clone = mytemplate.content.cloneNode(true);
-  let titleNode = clone.querySelector("#title-node");
-  let descriptionNode = clone.querySelector("#description-node");
-  let imageNode = clone.querySelector("#image-node");
-  let priceNode = clone.querySelector("#price-node");
-  let buyButton = clone.querySelector("#buy-node");
-  let modalButton = clone.querySelector("#modal-button");
+  let mytemplate = document.querySelector("#myTemplate"),
+   clone = mytemplate.content.cloneNode(true),
+   titleNode = clone.querySelector("#title-node"),
+ descriptionNode = clone.querySelector("#description-node"),
+   imageNode = clone.querySelector("#image-node"),
+   priceNode = clone.querySelector("#price-node"),
+   buyButton = clone.querySelector("#buy-node"),
+ modalButton = clone.querySelector("#modal-button")
 
   titleNode.innerText = title;
   descriptionNode.innerText = description.substr(0, 150) + "...";
@@ -42,15 +42,15 @@ function cardTemplate(id, title, description, image, price) {
  * creates a product item html element and its contents by cloning a template
  */
 function itemTemplate(product, quantity) {
-  let mytemplate = document.querySelector("#product-item");
-  let clone = mytemplate.content.cloneNode(true);
-  let titleNode = clone.querySelector("#product-item-title");
-  let idNode = clone.querySelector("#product-id");
-  let imageNode = clone.querySelector("#product-item-image");
-  let quantityNode = clone.querySelector("#product-item-quantity");
-  let minusNode = clone.querySelector("#quantity-minus");
-  let plusNode = clone.querySelector("#quantity-plus");
-  let removeNode = clone.querySelector("#product-item-remove");
+  let mytemplate = document.querySelector("#product-item"),
+   clone = mytemplate.content.cloneNode(true),
+   titleNode = clone.querySelector("#product-item-title"),
+   idNode = clone.querySelector("#product-id"),
+   imageNode = clone.querySelector("#product-item-image"),
+   quantityNode = clone.querySelector("#product-item-quantity"),
+   minusNode = clone.querySelector("#quantity-minus"),
+   plusNode = clone.querySelector("#quantity-plus"),
+   removeNode = clone.querySelector("#product-item-remove")
 
   titleNode.innerText = product.title;
   imageNode.src = product.image;
@@ -117,9 +117,6 @@ function addToCart(e) {
  
   }
 }
-
-
-
 
 
 /**

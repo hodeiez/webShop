@@ -139,7 +139,7 @@
         </div>
         <div class="row mt-5">
           <div class="col">
-            <button id="submit" class="btn btn-primary" type="submit">
+            <button id="submit" class="btn btn-primary" type="button">
               Confirm and Submit
             </button>
           </div>
@@ -198,17 +198,17 @@
           if (
             $(this).attr("id") === "phone-form" ||
             $(this).attr("id") === "zip-form"
-          ){
+          ){$(this).addClass('numeric')
             $(this).after(
               '<div class="invalid-number-feedback invalid-feedback">You didnt type a correct number</div>'
             );
-            $(this).addClass('numeric')
+            
           }
-          else
+          else{
             $(this).after(
               '<div class="invalid-empty invalid-feedback">This is empty</div>'
             );
-            $(this).addClass('text')
+            $(this).addClass('text')}
         });
       }
 
@@ -221,21 +221,25 @@
           $(this).children($(".invalid-feedback")).show();
           console.log("here1")
           $(".invalid-number-feedback").show();
+          
+          return false;
         
         }
        else if (!$.isNumeric($(this).val()) || !$.isNumeric($zipField.val()) ) {
           // e.preventDefault()
-          showNotValid($(".invalid-number-feedback"));
+          console.log('first '+ $(this))
+          showNotValid($(this).val());
+         
           // $('#phone-form').addClass('.is-valid')
           $(".invalid-number-feedback").show();
           console.log("here2")
-
+          return false;
         } else {
           $("#dialog").dialog("open");
           $submit.attr("disabled", true);
          
         }
-        return false;
+        //return false;
       })
     });
 

@@ -206,7 +206,7 @@
           }
           else{
             $(this).after(
-              '<div class="invalid-empty invalid-feedback">This is empty</div>'
+              '<div id="'+$(this)+'-feedback" class="invalid-empty invalid-feedback">This is empty</div>'
             );
             $(this).addClass('text')}
         });
@@ -220,12 +220,13 @@
            
         if ($(this).hasClass('text') && $(this).val()===""){
           showNotValid($(this));
-          $(this).children($(".invalid-feedback")).show();
+          $(this).closest(".invalid-feedback").show();
           console.log('whats this? ' + $(this).attr("class"));
           console.log('first '+ $(this).attr("id"))
-          $(".invalid-feedback").show();
+          console.log($(this).closest('div'))
+          $('#'+$(this).attr('id')+'-feedback').show();
           
-        //  return false;
+          return false;
         
         }
        else if ($(this).hasClass('numeric') && !$.isNumeric($(this)) ) {
@@ -234,12 +235,12 @@
           showNotValid($(this));
          
           // $('#phone-form').addClass('.is-valid')
-          $(".invalid-number-feedback").show();
+          $(this).children($(".invalid-number-feedback")).show();
      
-         // return false;
+          return false;
         } else {
-          $("#dialog").dialog("open");
-          $submit.attr("disabled", true);
+        //  $("#dialog").dialog("open");
+         // $submit.attr("disabled", true);
        // return false;
         }
         //

@@ -212,34 +212,37 @@
         });
       }
 
+
+
       $("#submit").click(function (e) {
         //is blank
         $("input", $("form")).each(function () {
-
-        if ($(this).hasClass('.text') && $(this).val()===""){
+           
+        if ($(this).hasClass('text') && $(this).val()===""){
           showNotValid($(this));
           $(this).children($(".invalid-feedback")).show();
-          console.log("here1")
-          $(".invalid-number-feedback").show();
+          console.log('whats this? ' + $(this).attr("class"));
+          console.log('first '+ $(this).attr("id"))
+          $(".invalid-feedback").show();
           
-          return false;
+        //  return false;
         
         }
-       else if (!$.isNumeric($(this).val()) || !$.isNumeric($zipField.val()) ) {
+       else if ($(this).hasClass('numeric') && !$.isNumeric($(this)) ) {
           // e.preventDefault()
-          console.log('first '+ $(this))
-          showNotValid($(this).val());
+          console.log('second '+ $(this).attr("id"))
+          showNotValid($(this));
          
           // $('#phone-form').addClass('.is-valid')
           $(".invalid-number-feedback").show();
-          console.log("here2")
-          return false;
+     
+         // return false;
         } else {
           $("#dialog").dialog("open");
           $submit.attr("disabled", true);
-         
+       // return false;
         }
-        //return false;
+        //
       })
     });
 

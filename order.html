@@ -67,7 +67,7 @@
           <h2>Write your delivery data</h2>
         </div>
       </div>
-      <form id="confirmation-form">
+      <form id="confirmation-form" action="" method="POST">
         <div class="row">
           <div class="col">
             <label for="name-form">Name</label>
@@ -75,8 +75,10 @@
               id="name-form"
               type="text"
               class="form-control"
+              name="name"
+              minlength="3"
               title="write your name"
-              placeholder="Your name"
+              placeholder="Your name" required
             />
           </div>
           <div class="col">
@@ -84,8 +86,9 @@
             <input
               id="surname-form"
               type="text"
+              name="surname"
               class="form-control"
-              placeholder="Your surname"
+              placeholder="Your surname" required
             />
           </div>
         </div>
@@ -95,8 +98,9 @@
             <input
               id="email-form"
               type="email"
+              name="email"
               class="form-control"
-              placeholder="my@email.com"
+              placeholder="my@email.com" required
             />
           </div>
           <div class="col">
@@ -104,6 +108,7 @@
             <input
               id="phone-form"
               type="text"
+              name="phone"
               class="form-control"
               placeholder="79695843"
             />
@@ -114,8 +119,10 @@
         <input
           id="address-form"
           type="text"
+          name="address"
           class="form-control"
           placeholder="Your address"
+          required
         />
         <div class="row">
           <div class="col">
@@ -123,8 +130,10 @@
             <input
               id="city-form"
               type="text"
+              name="city"
               class="form-control"
               placeholder="Your city"
+              required
             />
           </div>
           <div class="col">
@@ -132,19 +141,22 @@
             <input
               id="zip-form"
               type="text"
+              name="zip"
               class="form-control"
               placeholder="120 59"
+              required
             />
           </div>
         </div>
         <div class="row mt-5">
           <div class="col">
-            <button id="submit" class="btn btn-primary" type="button">
+            <button id="submit" class="btn btn-primary" type="submit" value="showDialog()">
               Confirm and Submit
             </button>
           </div>
         </div>
       </form>
+      
       <div
         id="dialog"
         title="Confirmed"
@@ -175,6 +187,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 
     <script src="init.js"></script>
     <script src="test.js"></script>
@@ -187,12 +200,12 @@
         $emailField = $("#email-form"),
         $phoneField = $("#phone-form"),
         $addressField = $("#address-form"),
-        $cityFIeld = $("#city-form"),
+        $cityField = $("#city-form"),
         $zipField = $("#zip-form"),
         $submit = $("#submit");
 
-      addinvalidDiv();
-
+   //   addinvalidDiv();
+/*
       function addinvalidDiv() {
         $("input", $("form")).each(function () {
           if (
@@ -213,7 +226,7 @@
       }
 
 
-
+/*
       $("#submit").click(function (e) {
         //is blank
         $("input", $("form")).each(function () {
@@ -246,7 +259,69 @@
         //
       })
     });
+*/
+let messages=(name,charNumber)=>'Fill up your '+name+', at least '+charNumber+' characters'
+let requiredMes=(name)=>name+' is required'
+$('#confirmation-form').validate({
+rules:{
 
+  name:{
+    required:true, minlength:2
+  },
+  surname:{
+    required:true, minlength:2
+  },
+  address:{
+    required:true,minlength:3
+  },
+  city:{
+    required:true
+  },
+  email:{
+    required:true,
+    email:true
+  },
+  phone:{
+    required:true,
+    number:true,
+    minlength:9
+  },
+  zip:{
+    required:true,
+    minlength:5
+  }
+
+},
+messages:{
+name:{
+    minlength: messages($nameField.attr('name'), '2')
+  },
+  surname:{
+   minlength: messages($surnameField.attr('name'),'2')
+  },
+  address:{
+    minlength: messages($addressField.attr('name'), '3')
+  },
+  city:{
+    required:requiredMes($cityField.attr('name'))
+  },
+  email:{
+   
+    email:requiredMes($emailField.attr('name'))+ ' and has to have this format: name@domain.com'
+  },
+  phone:{
+    
+    minlength:messages($phoneField.attr('name'),'9')
+  },
+  zip:{
+   
+    minlength:messages($zipField.attr('name'),'5')
+  }
+}
+
+
+})
+function showDialog(){
       $("#dialog").dialog({
         autoOpen: false,
         modal: true,
@@ -256,6 +331,7 @@
         height: 200,
         width: 400,
       });
+    }
 
       function showNotValid(element) {
         $(element).effect("shake");

@@ -40,12 +40,12 @@
   
   #page-content-wrapper {
     width: 100%;
-    position: absolute;
+    position: relative;
     padding: 15px;
   }
   
   #wrapper.toggled #page-content-wrapper {
-    position: absolute;
+    position: relative;
     margin-right: 0px;
   }
  .error{
@@ -74,22 +74,20 @@ input.valid:focus{
   @media(min-width:768px) {
     #wrapper {
       padding-left: 0;
+     
     }
     #wrapper.toggled {
       padding-right: 400px;
+     
     }
     #sidebar-wrapper {
       width: 0;
+     
     }
     #wrapper.toggled #sidebar-wrapper {
       width: 600px;
+      
     }
-    #page-content-wrapper {
-      padding: 20px;
-      position: relative;
-    }
-    #wrapper.toggled #page-content-wrapper {
-      position: relative;
-      margin-right: 0;
-    }
+
+   
   }

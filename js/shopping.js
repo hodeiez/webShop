@@ -7,7 +7,7 @@ function shoppingInit(){
 /**
  * Function to create ProductItem
  * @param {index of productItem in shopingCartObj} index 
- * @param {quantity of porducts in product item*} quantity 
+ * @param {quantity of products in product item*} quantity 
  * @returns  returns a productItem object
  */
 function createProductItem(index, quantity) {
@@ -24,7 +24,7 @@ function createProductItem(index, quantity) {
  */
  function setAllProducts() {
   productsList = new Array();
-  fetch('http://webacademy.se/fakestore/')
+  fetch('https://webacademy.se/fakestore/')
     .then((res) => res.json())
     .then((json) => {
       json.forEach((product) => {

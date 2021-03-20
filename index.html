@@ -312,26 +312,12 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-<script src="init.js"></script>
-    <script src="test.js"></script>
-    <script>
-      //test sidebar
-      $(function(){
-            $("#sidebar-toggle").click(function(e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-          });
-          
-      //end, then the rest
-      shoppingCartInit();
-      setCategories();
-      setAllProducts();
-      //productItemFunctionality();
-      
-        
-  
-     
+<script src="js/init.js"></script>
+    <script src="js/shopping.js"></script>
+    <script src="js/misc.js"></script>
+    <script>  
+          shoppingInit()
+ 
     </script>
   </body>
 </html>

@@ -48,7 +48,29 @@
     position: absolute;
     margin-right: 0px;
   }
+ .error{
+   color:red;
+ }
+ input.error{
+   border-color: red;
+  
+ }
+ input.error:focus{
+  border-color: red;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
  
+}
+ input.valid{
+  border-color: green;
+  border-width: 2px; 
+ 
+}
+input.valid:focus{
+  border-color: green;
+
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(3, 253, 36, 0.6);
+  
+}
   @media(min-width:768px) {
     #wrapper {
       padding-left: 0;

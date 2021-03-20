@@ -150,7 +150,7 @@
         </div>
         <div class="row mt-5">
           <div class="col">
-            <button id="submit" class="btn btn-primary" type="submit" value="showDialog()">
+            <button id="submit" class="btn btn-primary" type="submit" value="submit">
               Confirm and Submit
             </button>
           </div>
@@ -158,12 +158,35 @@
       </form>
       
       <div
-        id="dialog"
-        title="Confirmed"
-        class="modal-dialog-centered bg-light shadow" hidden
-      >
-        <h3>Your order has been confirmed</h3>
+      class="modal fade"
+      id="dialog"
+      tabindex="-1"
+      role="dialog"
+      
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="text-modal">
+             Order confirmed!
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">The order will be delivered as soon as possible</div>
+          <div class="modal-footer">
+            
+          </div>
+        </div>
       </div>
+    </div>
     </div>
 
     <script
@@ -189,162 +212,11 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 
-    <script src="init.js"></script>
-    <script src="test.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/order.js"></script>
 
     <script>
       orderInit();
-
-      let $nameField = $("#name-form"),
-        $surnameField = $("#surname-form"),
-        $emailField = $("#email-form"),
-        $phoneField = $("#phone-form"),
-        $addressField = $("#address-form"),
-        $cityField = $("#city-form"),
-        $zipField = $("#zip-form"),
-        $submit = $("#submit");
-
-   //   addinvalidDiv();
-/*
-      function addinvalidDiv() {
-        $("input", $("form")).each(function () {
-          if (
-            $(this).attr("id") === "phone-form" ||
-            $(this).attr("id") === "zip-form"
-          ){$(this).addClass('numeric')
-            $(this).after(
-              '<div class="invalid-number-feedback invalid-feedback">You didnt type a correct number</div>'
-            );
-            
-          }
-          else{
-            $(this).after(
-              '<div id="'+$(this)+'-feedback" class="invalid-empty invalid-feedback">This is empty</div>'
-            );
-            $(this).addClass('text')}
-        });
-      }
-
-
-/*
-      $("#submit").click(function (e) {
-        //is blank
-        $("input", $("form")).each(function () {
-           
-        if ($(this).hasClass('text') && $(this).val()===""){
-          showNotValid($(this));
-          $(this).closest(".invalid-feedback").show();
-          console.log('whats this? ' + $(this).attr("class"));
-          console.log('first '+ $(this).attr("id"))
-          console.log($(this).closest('div'))
-          $('#'+$(this).attr('id')+'-feedback').show();
-          
-          return false;
-        
-        }
-       else if ($(this).hasClass('numeric') && !$.isNumeric($(this)) ) {
-          // e.preventDefault()
-          console.log('second '+ $(this).attr("id"))
-          showNotValid($(this));
-         
-          // $('#phone-form').addClass('.is-valid')
-          $(this).children($(".invalid-number-feedback")).show();
-     
-          return false;
-        } else {
-        //  $("#dialog").dialog("open");
-         // $submit.attr("disabled", true);
-       // return false;
-        }
-        //
-      })
-    });
-*/
-let messages=(name,charNumber)=>'Fill up your '+name+', at least '+charNumber+' characters'
-let requiredMes=(name)=>name+' is required'
-$('#confirmation-form').validate({
-rules:{
-
-  name:{
-    required:true, minlength:2
-  },
-  surname:{
-    required:true, minlength:2
-  },
-  address:{
-    required:true,minlength:3
-  },
-  city:{
-    required:true
-  },
-  email:{
-    required:true,
-    email:true
-  },
-  phone:{
-    required:true,
-    number:true,
-    minlength:9
-  },
-  zip:{
-    required:true,
-    minlength:5
-  }
-
-},
-messages:{
-name:{
-    minlength: messages($nameField.attr('name'), '2')
-  },
-  surname:{
-   minlength: messages($surnameField.attr('name'),'2')
-  },
-  address:{
-    minlength: messages($addressField.attr('name'), '3')
-  },
-  city:{
-    required:requiredMes($cityField.attr('name'))
-  },
-  email:{
-   
-    email:requiredMes($emailField.attr('name'))+ ' and has to have this format: name@domain.com'
-  },
-  phone:{
-    
-    minlength:messages($phoneField.attr('name'),'9')
-  },
-  zip:{
-   
-    minlength:messages($zipField.attr('name'),'5')
-  }
-}
-
-
-})
-function showDialog(){
-      $("#dialog").dialog({
-        autoOpen: false,
-        modal: true,
-        show: "blind",
-        hide: "fold",
-        resizable: false,
-        height: 200,
-        width: 400,
-      });
-    }
-
-      function showNotValid(element) {
-        $(element).effect("shake");
-        // $(this).tooltip()
-        $(element)
-          .animate({
-            borderColor: "red",
-          })
-          .delay(1000);
-        $(element).animate({
-          borderColor: "gray",
-        });
-      }
     </script>
   </body>
 </html>

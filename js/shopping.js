@@ -1,4 +1,9 @@
 
+function shoppingInit(){
+  shoppingCartInit();
+      setAllProducts();
+}
+
 /**
  * Function to create ProductItem
  * @param {index of productItem in shopingCartObj} index 
@@ -12,7 +17,34 @@ function createProductItem(index, quantity) {
   );
   return productItem;
 }
+/**
+ * gets products from database, stores them in local storage and "prints" them.
+ * http://webacademy.se/fakestore/
+ * ../backupData/backup2.json
+ */
+ function setAllProducts() {
+  productsList = new Array();
+  fetch('http://webacademy.se/fakestore/')
+    .then((res) => res.json())
+    .then((json) => {
+      json.forEach((product) => {
+        let productItem = new Product(
+          product.id,
+          product.title,
+          product.description,
+          product.image,
+          product.price,
+          product.category
+        );
 
+        productsList.push(productItem);
+        let element = productItem.createCard();
+        document.getElementById("products").appendChild(element);
+      });
+
+      setLocalData("PRODUCTS_LIST", JSON.stringify(productsList));
+    });
+}
 /**
  * creates a product html element and its contents by cloning a template
  */
@@ -73,27 +105,6 @@ function itemTemplate(product, quantity) {
 }
 
 
-
-/**
- * gets categories from database and appends in "#categories" as a list
- */
-function setCategories() {
-  /*
-  fetch("https://fakestoreapi.com/products/categories")
-    .then((res) => res.json())
-    .then((json) => {
-      json.forEach((item) => {
-        let element = document.createElement("li");
-        element.className = "nav-item";
-        element.innerText = item;
-        element.className = "list-group-item";
-        document.getElementById("categories").appendChild(element);
-      });
-    });
-    */
-   console.log("fakestoreapi is broken")
-}
-
 /**
  * 
  * event listener for "buy" button, adds a product to shopping cart
@@ -119,60 +130,6 @@ function addToCart(e) {
   }
 }
 
-
-/**
- *  gets by given name the stored object in local data
- */
-function getLocalData(name) {
-  return localStorage.getItem(name);
-}
-/**
- *  sets an object in local storage with given name and value
- */
-function setLocalData(name, value) {
-  return value != null
-    ? localStorage.setItem(name, value)
-    : localStorage.removeItem(name);
-}
-/**
- *  removes from local storage objects relative to shopping cart
- */
-function clearShoppingCartData(){
-    localStorage.removeItem("SHOPPING_CART_INDEX_COUNT");
-    localStorage.removeItem("SHOPPING_CART");
-}
-
-/**
- * gets products from database, stores them in local storage and "prints" them.
- */
-function setAllProducts() {
-  productsList = new Array();
-  //this id the api address I was using, but sometimes is down, so, now it feches to a local json file 
-  //"https://fakestoreapi.com/products" 
- //'http://webacademy.se/fakestore/'
-  //"backup.json" 
-
-  fetch('backup2.json')
-    .then((res) => res.json())
-    .then((json) => {
-      json.forEach((product) => {
-        let productItem = new Product(
-          product.id,
-          product.title,
-          product.description,
-          product.image,
-          product.price,
-          product.category
-        );
-
-        productsList.push(productItem);
-        let element = productItem.createCard();
-        document.getElementById("products").appendChild(element);
-      });
-
-      setLocalData("PRODUCTS_LIST", JSON.stringify(productsList));
-    });
-}
 
 /**
  * updates the shopping cart from the local storage
@@ -217,7 +174,7 @@ function addItemToShoppingCart(productItem) {
 
 /**
  * 
- * returns the index of a prouct item in local storage shopping cart array
+ * returns the index of a product item in local storage shopping cart array
  */
 function getItemIndex(productId) {
   for (index in shopingCartObj) {
@@ -327,7 +284,7 @@ $("#info-modal").on("show.bs.modal", function (event) {
  */
 
 $("#added-modal").on("show.bs.modal", function (event) {
-  console.log('fired')
+
   var button = $(event.relatedTarget);
   var title = 'Added to cart';
   var description = button.data("title")+ ' has been added to your Shopping Cart!';
@@ -342,41 +299,10 @@ $("#added-modal").on("show.bs.modal", function (event) {
 $('#check-out-button').click(function(){
   if(shopingCartObj.length>0)
      window.location.href='order.html'
-    //will add some message when cart is empty
+    //TODO:add some message when cart is empty
      
   
 })
-function orderInit(){
-  shopingCartObj = JSON.parse(getLocalData("SHOPPING_CART"));
-  fillOrderTable()
-
-}
-
-function fillOrderTable(){
-  let basePrice=0;
- shopingCartObj.forEach(element=>{
-    basePrice+=(element.product.price * element.quantity)
-  })
-  let taxesPrice=((basePrice/100)*taxesBase).toFixed(2)
-  fillOrderRow()
-  $('#taxes-number').text(taxesPrice+currency)
-  $('#costs-number').text(deliveryCosts+currency)
-  $('#total-price').text((Number(basePrice)+Number(taxesPrice)+Number(deliveryCosts)).toFixed(2) + currency)
 
 
-
-}
-function fillOrderRow(){
- 
-  shopingCartObj.forEach(item=>{
-    
-let template=$('#product-row').contents().clone();
-template.find('#product-title-table').text(item.product.title)
-template.find('#product-quantity-table').text(item.quantity)
-template.find('#product-price-table').text(item.product.price)
-template.find('#product-sum-table').text(Number(item.product.price)*item.quantity)
-$('#order-table-body').prepend(template)
-})
-
-}
 

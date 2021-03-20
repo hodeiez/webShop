@@ -40,4 +40,26 @@
      this.quantity = quantity;
    }
  }
+
+ /**
+ *  gets by given name the stored object in local data
+ */
+function getLocalData(name) {
+  return localStorage.getItem(name);
+}
+/**
+ *  sets an object in local storage with given name and value
+ */
+function setLocalData(name, value) {
+  return value != null
+    ? localStorage.setItem(name, value)
+    : localStorage.removeItem(name);
+}
+/**
+ *  removes from local storage objects relative to shopping cart
+ */
+ function clearShoppingCartData(){
+  localStorage.removeItem("SHOPPING_CART_INDEX_COUNT");
+  localStorage.removeItem("SHOPPING_CART");
+}
  

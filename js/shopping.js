@@ -119,11 +119,9 @@ function addToCart(e) {
     updateItemQuantityByIndex(getItemIndex(productItem.product.id), 1);
   } else {
     addItemToShoppingCart(productItem);
-
     document
       .getElementById("shopping-cart")
       .appendChild(itemTemplate(productItem.product, productItem.quantity));
-
     document.getElementById("shopping-cart-icon").innerText =
       Number(iconText) + 1;
  

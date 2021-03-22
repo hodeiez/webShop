@@ -24,7 +24,7 @@
      this.category = category;
    }
    createCard() {
-     return cardTemplate(
+     return renderCard(
        this.id,
        this.title,
        this.description,

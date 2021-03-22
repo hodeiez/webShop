@@ -48,7 +48,7 @@ function createProductItem(index, quantity) {
 /**
  * creates a product html element and its contents by cloning a template
  */
-function cardTemplate(id, title, description, image, price) {
+function renderCard(id, title, description, image, price) {
   let mytemplate = document.querySelector("#myTemplate"),
    clone = mytemplate.content.cloneNode(true),
    titleNode = clone.querySelector("#title-node"),
@@ -74,7 +74,7 @@ function cardTemplate(id, title, description, image, price) {
 /**
  * creates a product item html element and its contents by cloning a template
  */
-function itemTemplate(product, quantity) {
+function renderItem(product, quantity) {
   let mytemplate = document.querySelector("#product-item"),
    clone = mytemplate.content.cloneNode(true),
    titleNode = clone.querySelector("#product-item-title"),
@@ -121,7 +121,7 @@ function addToCart(e) {
     addItemToShoppingCart(productItem);
     document
       .getElementById("shopping-cart")
-      .appendChild(itemTemplate(productItem.product, productItem.quantity));
+      .appendChild(renderItem(productItem.product, productItem.quantity));
     document.getElementById("shopping-cart-icon").innerText =
       Number(iconText) + 1;
  
@@ -148,7 +148,7 @@ function shoppingCartInit() {
       document
         .getElementById("shopping-cart")
         .appendChild(
-          itemTemplate(
+          renderItem(
             shopingCartObj[productIndex].product,
             shopingCartObj[productIndex].quantity
           )
